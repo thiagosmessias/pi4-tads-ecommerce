@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>Usuario</servlet-name>
-        <servlet-class>com.gruposet.ecommerce.servlets.Usuario</servlet-class>
+        <servlet-name>ServletUsuario</servlet-name>
+        <servlet-class>com.gruposet.ecommerce.servlets.ServletUsuario</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Usuario</servlet-name>
+        <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/Usuario</url-pattern>
     </servlet-mapping>
     <session-config>
@@ -13,4 +13,11 @@
             30
         </session-timeout>
     </session-config>
+    <resource-ref>
+        <description>jdbc:mysql://localhost:3306/ecommerce?zeroDateTimeBehavior=convertToNull</description>
+        <res-ref-name>EcommerceDatabase</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>

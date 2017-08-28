@@ -19,21 +19,22 @@ public class DaoUsuario implements Daos {
     private Database db;
     private Usuario user;
 
-    public DaoUsuario() {
+    public DaoUsuario(Usuario u) {
         db = new Database();
+        user = u;
     }
 
     public void setUser(Usuario user) {
         this.user = user;
     }
-
+    
     public Usuario getUser() {
         return user;
     }
 
     @Override
     public void insert() {
-        String query = "INSERT INTO users (nome, sobrenome, telefone, cep, perfil) VALUE (?,?,?,?,?);";
+        String query = "INSERT INTO users (nome, sobrenome, telefone, cep, perfil, senha, cpf) VALUE (?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = db.getConnection().prepareStatement(query);
@@ -41,7 +42,9 @@ public class DaoUsuario implements Daos {
             stt.setString(2, user.getSobrenome());
             stt.setString(3, user.getTelefone());
             stt.setString(4, user.getCep());
-            stt.setInt(5, 1);
+            stt.setInt(5, user.getPerfil());
+            stt.setString(6, user.getSenha());
+            stt.setString(7, user.getCpf());
             stt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);

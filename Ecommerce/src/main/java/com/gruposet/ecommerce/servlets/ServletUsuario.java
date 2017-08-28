@@ -5,6 +5,10 @@
  */
 package com.gruposet.ecommerce.servlets;
 
+import com.gruposet.ecommerce.daos.DaoUsuario;
+import com.gruposet.ecommerce.daos.Daos;
+import com.gruposet.ecommerce.daos.Database;
+import com.gruposet.ecommerce.models.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author thiagomessias
  */
-public class Usuario extends HttpServlet {
+public class ServletUsuario extends HttpServlet {
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,6 +35,9 @@ public class Usuario extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        Usuario u = new Usuario("Thiago", "Sousa", "11987654321", 1, "12345678", true, "1234", "1234");
+        Daos db = new DaoUsuario(u);
+        db.insert();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -57,6 +65,7 @@ public class Usuario extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**
