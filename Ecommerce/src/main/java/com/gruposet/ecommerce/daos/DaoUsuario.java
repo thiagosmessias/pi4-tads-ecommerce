@@ -16,35 +16,38 @@ import java.util.logging.Logger;
  * @author thiagomessias
  */
 public class DaoUsuario implements Daos {
-    private Database db;
-    private Usuario user;
+    private final Database database;
+    private Usuario cli;
 
-    public DaoUsuario(Usuario u) {
-        db = new Database();
-        user = u;
+    public DaoUsuario(Usuario cli) {
+        database = new Database();
+        this.cli = cli;
     }
 
-    public void setUser(Usuario user) {
-        this.user = user;
+    public void setCli(Usuario cli) {
+        this.cli = cli;
     }
     
-    public Usuario getUser() {
-        return user;
+    public Usuario getCli() {
+        return cli;
     }
 
-    @Override
+     @Override
     public void insert() {
-        String query = "INSERT INTO users (nome, sobrenome, telefone, cep, perfil, senha, cpf) VALUE (?,?,?,?,?,?,?);";
+        String query = "INSERT INTO Cliente (nome, apelido, cpf, celular, email, senha, acesso, ativo) VALUE (?,?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
-            stt = db.getConnection().prepareStatement(query);
-            stt.setString(1, user.getNome());
-            stt.setString(2, user.getSobrenome());
-            stt.setString(3, user.getTelefone());
-            stt.setString(4, user.getCep());
-            stt.setInt(5, user.getPerfil());
-            stt.setString(6, user.getSenha());
-            stt.setString(7, user.getCpf());
+            stt = database.getConnection().prepareStatement(query);
+
+            stt.setString(1, cli.getName());
+            stt.setString(2, cli.getNickname());
+            stt.setString(3, cli.getCpf());
+            stt.setString(4, cli.getPhone());
+            stt.setString(5, cli.getEmail());
+            stt.setString(6, cli.getPassword());
+            stt.setString(7, cli.getAccess());
+            stt.setBoolean(8, cli.isEnable());
+
             stt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);

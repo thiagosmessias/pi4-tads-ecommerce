@@ -10,81 +10,44 @@ package com.gruposet.ecommerce.models;
  * @author thiagomessias
  */
 public class Usuario {
-    String nome;
-    String sobrenome;
-    String telefone;
-    int perfil;
-    String cep;
-    boolean ativo;
-    String senha;
-    String cpf;
+    private int id;
+    private String name, nickname, cpf, birth, phone, email, password, access;
+    private boolean enable;
 
-    public Usuario(String nome, String sobrenome, String telefone, int perfil, String cep, boolean ativo, String senha, String cpf) {
-        this.nome = nome;
-        this.sobrenome = sobrenome;
-        this.telefone = telefone;
-        this.perfil = perfil;
-        this.cep = cep;
-        this.ativo = ativo;
-        this.senha = senha;
+    public Usuario(String name, String nickname, String cpf, String birth, String phone, String email, String password, String access, boolean enable) {
+        this.name = name;
+        this.nickname = nickname;
         this.cpf = cpf;
-    }
-    
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
+        this.birth = birth;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.access = access;
+        this.enable = enable;
     }
 
-    public String getSobrenome() {
-        return sobrenome;
+    public int getId() {
+        return id;
     }
 
-    public void setSobrenome(String sobrenome) {
-        this.sobrenome = sobrenome;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTelefone() {
-        return telefone;
+    public String getName() {
+        return name;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getPerfil() {
-        return perfil;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setPerfil(int perfil) {
-        this.perfil = perfil;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getCpf() {
@@ -95,5 +58,52 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
 }
