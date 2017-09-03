@@ -19,9 +19,9 @@ public class DaoUsuario implements Daos {
     private Database db;
     private Usuario user;
 
-    public DaoUsuario(Usuario u) {
+    public DaoUsuario(Usuario user) {
         db = new Database();
-        user = u;
+        user = user;
     }
 
     public void setUser(Usuario user) {

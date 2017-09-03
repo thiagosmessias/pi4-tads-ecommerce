@@ -10,6 +10,7 @@ package com.gruposet.ecommerce.models;
  * @author thiagomessias
  */
 public class Usuario {
+    int id;
     String nome;
     String sobrenome;
     String telefone;
@@ -19,6 +20,10 @@ public class Usuario {
     String senha;
     String cpf;
 
+    public Usuario(int id) {
+        this.id = id;
+    }
+    
     public Usuario(String nome, String sobrenome, String telefone, int perfil, String cep, boolean ativo, String senha, String cpf) {
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -93,6 +98,10 @@ public class Usuario {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public int getId() {
+        return id;
     }
 
     

@@ -33,13 +33,15 @@ CREATE TABLE IF NOT EXISTS `products` (
 );
 
 CREATE TABLE IF NOT EXISTS `address` (
+    id              INT NOT NULL AUTO_INCREMENT,
     user_id         INT NOT NULL,
     numero          INT,
     rua             varchar(255),
     cidade          varchar(255),
     estado          varchar(255),
     cep             varchar(255),
-    ativo           bit,
-    `default`       bit,
+    ativo           bit DEFAULT TRUE,
+    padrao          bit,
+    PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

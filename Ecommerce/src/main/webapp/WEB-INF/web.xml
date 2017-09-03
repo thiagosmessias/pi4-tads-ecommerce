@@ -4,9 +4,17 @@
         <servlet-name>ServletUsuario</servlet-name>
         <servlet-class>com.gruposet.ecommerce.servlets.ServletUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletEndereco</servlet-name>
+        <servlet-class>com.gruposet.ecommerce.servlets.ServletEndereco</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/Usuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEndereco</servlet-name>
+        <url-pattern>/Endereco</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
