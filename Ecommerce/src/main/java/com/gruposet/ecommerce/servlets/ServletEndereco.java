@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.servlets;
 
 import com.gruposet.ecommerce.daos.DaoEndereco;
-import com.gruposet.ecommerce.daos.Daos;
 import com.gruposet.ecommerce.helpers.Messages;
 import com.gruposet.ecommerce.models.Endereco;
 import com.gruposet.ecommerce.models.Usuario;
@@ -17,11 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.gruposet.ecommerce.daos.InterfaceDao;
 
-/**
- *
- * @author thiagomessias
- */
 public class ServletEndereco extends HttpServlet {
 
     /**
@@ -70,7 +61,7 @@ public class ServletEndereco extends HttpServlet {
         } else if (request.getParameter("id").length() == 0) {
             String id = request.getParameter("id");
             Endereco endereco = new Endereco(Integer.valueOf(id));
-            Daos db = new DaoEndereco(endereco);
+            InterfaceDao db = new DaoEndereco(endereco);
         }
     }
 
@@ -90,14 +81,14 @@ public class ServletEndereco extends HttpServlet {
             String id = request.getParameter("id");
             Usuario user = new Usuario(Integer.valueOf(id));
             Endereco endereco = new Endereco(user);
-            Daos db = new DaoEndereco(endereco);
+            InterfaceDao db = new DaoEndereco(endereco);
             db.delete();
             
         } else if (request.getParameter("id").length() == 0) {
             String userId = request.getParameter("user_id");
             Usuario user = new Usuario(Integer.valueOf(userId));
             Endereco endereco = new Endereco(user);
-            Daos db = new DaoEndereco(endereco);
+            InterfaceDao db = new DaoEndereco(endereco);
             
             endereco.setCep(request.getParameter("cep"));
             endereco.setCidade(request.getParameter("cidade"));
@@ -110,7 +101,7 @@ public class ServletEndereco extends HttpServlet {
         } else if (request.getParameter("user_id").length() == 0) {
             String id = request.getParameter("id");
             Endereco endereco = new Endereco(Integer.valueOf(id));
-            Daos db = new DaoEndereco(endereco);
+            InterfaceDao db = new DaoEndereco(endereco);
 
             endereco.setCep(request.getParameter("cep"));
             endereco.setCidade(request.getParameter("cidade"));

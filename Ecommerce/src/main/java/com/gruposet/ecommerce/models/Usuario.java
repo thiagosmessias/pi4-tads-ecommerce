@@ -1,34 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.models;
 
-/**
- *
- * @author thiagomessias
- */
 public class Usuario {
 
     private int id;
-    private String name, nickname, cpf, birth, phone, email, password, access;
+    private String nome, apelido, cpf, data_nasc, telefone, email, senha, acesso;
     private boolean enable;
 
   public Usuario (int id)  {
     this.id = id;
   }
   
-  public Usuario(String name, String nickname, String cpf, String birth, String phone, String email, String password, String access, boolean enable) {
-        this.name = name;
-        this.nickname = nickname;
+  public Usuario(String nome, String apelido, String cpf, String data_nasc, String telefone, String email, String senha, boolean ativo) {
+        this.nome = nome;
+        this.apelido = apelido;
         this.cpf = cpf;
-        this.birth = birth;
-        this.phone = phone;
+        this.data_nasc = data_nasc;
+        this.telefone = telefone;
         this.email = email;
-        this.password = password;
-        this.access = access;
-        this.enable = enable;
+        this.senha = senha;
+        this.acesso = "cliente";
+        this.enable = ativo;
     }
 
     public int getId() {
@@ -39,20 +30,20 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getApelido() {
+        return apelido;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
     }
 
     public String getCpf() {
@@ -63,20 +54,20 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public String getBirth() {
-        return birth;
+    public String getData_nasc() {
+        return data_nasc;
     }
 
-    public void setBirth(String birth) {
-        this.birth = birth;
+    public void setData_nasc(String data_nasc) {
+        this.data_nasc = data_nasc;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public String getEmail() {
@@ -87,20 +78,16 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public String getAccess() {
-        return access;
-    }
-
-    public void setAccess(String access) {
-        this.access = access;
+    public String getAcesso() {
+        return acesso;
     }
 
     public boolean isEnable() {

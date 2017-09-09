@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.servlets;
 
 import com.gruposet.ecommerce.daos.DaoUsuario;
@@ -27,16 +22,16 @@ public class ServletUsuario extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("nome");
-        String nickname = request.getParameter("nickname");
+        String nome = request.getParameter("nome");
+        String apelido = request.getParameter("apelido");
         String cpf = request.getParameter("cpf");
-        String birth = request.getParameter("birth");
-        String phone = request.getParameter("phone");
+        String data_nasc = request.getParameter("data_nasc");
+        String telefone = request.getParameter("telefone");
         String email = request.getParameter("email");
-        String password = request.getParameter("password");
+        String senha = request.getParameter("senha");
         
         
-        Usuario user = new Usuario(name, nickname, cpf, birth, phone, email, password, "client", true);
+        Usuario user = new Usuario(nome, apelido, cpf, data_nasc, telefone, email, senha, true);
         //boolean b = ServiceUsuario.validateUser(user);
         dao = new DaoUsuario(user);
         dao.insert();

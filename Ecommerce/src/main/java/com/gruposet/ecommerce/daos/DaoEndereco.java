@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.daos;
 
 import com.gruposet.ecommerce.models.Endereco;
@@ -14,22 +9,17 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author thiagomessias
- * @TODO: Validations
- */
-public class DaoEndereco implements Daos {
-    private Database db;
+public class DaoEndereco implements InterfaceDao {
+    private final Database database;
     private Endereco endereco;
 
     public DaoEndereco(Endereco endereco) {
-        this.db = new Database();
+        this.database = new Database();
         this.endereco = endereco;
     }
     
     public DaoEndereco() {
-        this.db = new Database();
+        this.database = new Database();
     }
     
     @Override
@@ -37,7 +27,7 @@ public class DaoEndereco implements Daos {
         String query = "INSERT INTO address (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
-            stt = db.getConnection().prepareStatement(query);
+            stt = database.getConnection().prepareStatement(query);
             stt.setInt(1, endereco.getUser_id());
             stt.setString(2, endereco.getRua());
             stt.setString(3, endereco.getCep());
@@ -57,7 +47,7 @@ public class DaoEndereco implements Daos {
         String query = "UPDATE address SET user_id=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=? WHERE id=?;";
         PreparedStatement stt;
         try {
-            stt = db.getConnection().prepareStatement(query);
+            stt = database.getConnection().prepareStatement(query);
             stt.setInt(1, endereco.getUser_id());
             stt.setString(2, endereco.getRua());
             stt.setString(3, endereco.getCep());
@@ -77,7 +67,7 @@ public class DaoEndereco implements Daos {
         String query = "SELECT * FROM address WHERE id=?;";
         PreparedStatement stt;
         try {
-            stt = db.getConnection().prepareCall(query);
+            stt = database.getConnection().prepareCall(query);
             stt.setInt(1, endereco.getId());
             ResultSet rs = stt.executeQuery(query);
             while(rs.next()) {
@@ -96,9 +86,16 @@ public class DaoEndereco implements Daos {
         }
     }
     
+    @Override
+    public void delete() {
+        endereco.setAtivo(false);
+        endereco.setPadrao(false);
+        this.update();
+    }
+    
     public static ArrayList <Endereco> listAddress(Usuario usuario) {
         Database database = new Database();
-        ArrayList <Endereco> enderecos = new ArrayList<Endereco>();
+        ArrayList <Endereco> enderecos = new ArrayList<>();
         String query = "SELECT * FROM address WHERE user_id=?;";
         PreparedStatement stt;
         try {
@@ -127,13 +124,6 @@ public class DaoEndereco implements Daos {
     public static ArrayList <Endereco> listAddress(int id) {
         Usuario user = new Usuario(id);
         return listAddress(user);
-    }
-
-    @Override
-    public void delete() {
-        endereco.setAtivo(false);
-        endereco.setPadrao(false);
-        this.update();
     }
     
 }
