@@ -19,9 +19,9 @@ public class DaoUsuario implements Daos {
     private final Database database;
     private Usuario cli;
 
-    public DaoUsuario(Usuario cli) {
-        database = new Database();
-        this.cli = cli;
+    public DaoUsuario(Usuario user) {
+        db = new Database();
+        user = user;
     }
 
     public void setCli(Usuario cli) {

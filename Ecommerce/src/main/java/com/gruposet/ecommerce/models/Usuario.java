@@ -10,11 +10,16 @@ package com.gruposet.ecommerce.models;
  * @author thiagomessias
  */
 public class Usuario {
+
     private int id;
     private String name, nickname, cpf, birth, phone, email, password, access;
     private boolean enable;
 
-    public Usuario(String name, String nickname, String cpf, String birth, String phone, String email, String password, String access, boolean enable) {
+  public Usuario (int id)  {
+    this.id = id;
+  }
+  
+  public Usuario(String name, String nickname, String cpf, String birth, String phone, String email, String password, String access, boolean enable) {
         this.name = name;
         this.nickname = nickname;
         this.cpf = cpf;
@@ -105,5 +110,4 @@ public class Usuario {
     public void setEnable(boolean enable) {
         this.enable = enable;
     }
-
 }
