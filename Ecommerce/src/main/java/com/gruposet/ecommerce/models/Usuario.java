@@ -13,7 +13,9 @@ public class Usuario {
     private int id;
     private String name, nickname, cpf, birth, phone, email, password, access;
     private boolean enable;
-
+    
+    //Comentario para adicionar Branch
+    
     public Usuario(String name, String nickname, String cpf, String birth, String phone, String email, String password, String access, boolean enable) {
         this.name = name;
         this.nickname = nickname;
