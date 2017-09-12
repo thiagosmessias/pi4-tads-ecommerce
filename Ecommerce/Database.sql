@@ -8,12 +8,13 @@
  * Created: Aug 27, 2017
  */
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE IF NOT EXISTS `usuarios` (
     id              INT NOT NULL AUTO_INCREMENT,
     nome            varchar(255),
     sobrenome       varchar(255),
     email           varchar(255) NOT NULL,
     telefone        varchar(255),
+    data_nasc       varchar(255),
     perfil          int DEFAULT 0,
     senha           varchar(255),
     cpf             varchar(255),
@@ -21,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS `products` (
+CREATE TABLE IF NOT EXISTS `produtos` (
     id              INT NOT NULL AUTO_INCREMENT,
     modelo          varchar(255),
     marca           varchar(255),
@@ -32,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS `address` (
+CREATE TABLE IF NOT EXISTS `enderecos` (
     id              INT NOT NULL AUTO_INCREMENT,
     user_id         INT NOT NULL,
     numero          INT,
