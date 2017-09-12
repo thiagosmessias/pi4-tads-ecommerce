@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.daos;
 
 import com.gruposet.ecommerce.models.Usuario;
@@ -11,25 +6,21 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author thiagomessias
- */
-public class DaoUsuario implements Daos {
+public class DaoUsuario implements InterfaceDao {
     private final Database database;
-    private Usuario cli;
+    private Usuario user;
 
-    public DaoUsuario(Usuario cli) {
+    public DaoUsuario(Usuario user) {
         database = new Database();
-        this.cli = cli;
+        this.user = user;
     }
 
-    public void setCli(Usuario cli) {
-        this.cli = cli;
+    public void setUser(Usuario user) {
+        this.user = user;
     }
     
-    public Usuario getCli() {
-        return cli;
+    public Usuario getUser() {
+        return user;
     }
 
      @Override
@@ -39,14 +30,14 @@ public class DaoUsuario implements Daos {
         try {
             stt = database.getConnection().prepareStatement(query);
 
-            stt.setString(1, cli.getName());
-            stt.setString(2, cli.getNickname());
-            stt.setString(3, cli.getCpf());
-            stt.setString(4, cli.getPhone());
-            stt.setString(5, cli.getEmail());
-            stt.setString(6, cli.getPassword());
-            stt.setString(7, cli.getAccess());
-            stt.setBoolean(8, cli.isEnable());
+            stt.setString(1, user.getNome());
+            stt.setString(2, user.getApelido());
+            stt.setString(3, user.getCpf());
+            stt.setString(4, user.getTelefone());
+            stt.setString(5, user.getEmail());
+            stt.setString(6, user.getSenha());
+            stt.setString(7, user.getAcesso());
+            stt.setBoolean(8, user.isEnable());
 
             stt.execute();
         } catch (SQLException ex) {

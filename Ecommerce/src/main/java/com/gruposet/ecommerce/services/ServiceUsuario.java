@@ -1,27 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.services;
 
 import com.gruposet.ecommerce.models.Usuario;
 import java.util.InputMismatchException;
 
-/**
- *
- * @author Rafael Ferreira
- */
 public abstract class ServiceUsuario {
 
     public static boolean validateUser(Usuario user) {
-        return validateName(user.getName())
-                || validateNickname(user.getNickname()) 
+        return validateName(user.getNome())
+                || validateNickname(user.getApelido()) 
                 || validateCPF(user.getCpf())
-                || validateBirth(user.getBirth())
-                || validatePhone(user.getPhone())
+                || validateBirth(user.getData_nasc())
+                || validatePhone(user.getTelefone())
                 || validateEmail(user.getEmail())
-                || validatePassword(user.getPassword());
+                || validatePassword(user.getSenha());
     }
 
     private static boolean validateName(String name) {
