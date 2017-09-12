@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DaoEndereco implements InterfaceDao {
+
     private final Database database;
     private Endereco endereco;
 
@@ -17,11 +18,11 @@ public class DaoEndereco implements InterfaceDao {
         this.database = new Database();
         this.endereco = endereco;
     }
-    
+
     public DaoEndereco() {
         this.database = new Database();
     }
-    
+
     @Override
     public void insert() {
         String query = "INSERT INTO address (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
@@ -35,7 +36,7 @@ public class DaoEndereco implements InterfaceDao {
             stt.setString(5, endereco.getEstado());
             stt.setInt(6, endereco.getNumero());
             stt.setBoolean(7, endereco.isPadrao());
-            
+
             stt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -58,19 +59,19 @@ public class DaoEndereco implements InterfaceDao {
             stt.setInt(8, endereco.getId());
             stt.execute();
         } catch (SQLException ex) {
-            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     public void select() {
-        String query = "SELECT * FROM address WHERE id=?;";
+        String query = "SELECT * FROM address WHERE id=? AND ativo=true";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
             stt.setInt(1, endereco.getId());
             ResultSet rs = stt.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 endereco.setUser_id(rs.getInt("user_id"));
                 endereco.setNumero(rs.getInt("numero"));
                 endereco.setRua(rs.getString("rua"));
@@ -80,29 +81,29 @@ public class DaoEndereco implements InterfaceDao {
                 endereco.setAtivo(rs.getBoolean("ativo"));
                 endereco.setPadrao(rs.getBoolean("padrao"));
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void delete() {
         endereco.setAtivo(false);
         endereco.setPadrao(false);
         this.update();
     }
-    
-    public static ArrayList <Endereco> listAddress(Usuario usuario) {
+
+    public static ArrayList<Endereco> listAddress(Usuario usuario) {
         Database database = new Database();
-        ArrayList <Endereco> enderecos = new ArrayList<>();
+        ArrayList<Endereco> enderecos = new ArrayList<>();
         String query = "SELECT * FROM address WHERE user_id=?;";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
             stt.setInt(1, usuario.getId());
             ResultSet rs = stt.executeQuery(query);
-            while(rs.next()) {
+            while (rs.next()) {
                 Endereco endereco = new Endereco(usuario);
                 endereco.setId(rs.getInt("id"));
                 endereco.setNumero(rs.getInt("numero"));
@@ -114,16 +115,16 @@ public class DaoEndereco implements InterfaceDao {
                 endereco.setPadrao(rs.getBoolean("padrao"));
                 enderecos.add(endereco);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
         return enderecos;
     }
-    
-    public static ArrayList <Endereco> listAddress(int id) {
+
+    public static ArrayList<Endereco> listAddress(int id) {
         Usuario user = new Usuario(id);
         return listAddress(user);
     }
-    
+
 }

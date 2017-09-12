@@ -4,13 +4,13 @@ public class Usuario {
 
     private int id;
     private String nome, apelido, cpf, data_nasc, telefone, email, senha, acesso;
-    private boolean enable;
+    private boolean ativo;
 
-  public Usuario (int id)  {
-    this.id = id;
-  }
-  
-  public Usuario(String nome, String apelido, String cpf, String data_nasc, String telefone, String email, String senha, boolean ativo) {
+    public Usuario(int id) {
+        this.id = id;
+    }
+
+    public Usuario(String nome, String apelido, String cpf, String data_nasc, String telefone, String email, String senha, boolean ativo) {
         this.nome = nome;
         this.apelido = apelido;
         this.cpf = cpf;
@@ -19,7 +19,7 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.acesso = "cliente";
-        this.enable = ativo;
+        this.ativo = ativo;
     }
 
     public int getId() {
@@ -90,11 +90,11 @@ public class Usuario {
         return acesso;
     }
 
-    public boolean isEnable() {
-        return enable;
+    public boolean isAtivo() {
+        return ativo;
     }
 
-    public void setEnable(boolean enable) {
-        this.enable = enable;
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 }
