@@ -10,19 +10,19 @@
     </servlet>
     <servlet>
         <servlet-name>ListUsuario</servlet-name>
-        <jsp-file>/html/Usuarios/Usuario.jsp</jsp-file>
+        <jsp-file>/html/Usuarios/Usuario.html</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>ServletEndereco</servlet-name>
         <url-pattern>/Endereco</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletUsuario</servlet-name>
-        <url-pattern>/Usuario</url-pattern>
+        <servlet-name>ListUsuario</servlet-name>
+        <url-pattern>/Usuarios/Usuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListUsuario</servlet-name>
-        <url-pattern>/Usuario/Usuarios</url-pattern>
+        <servlet-name>ServletUsuario</servlet-name>
+        <url-pattern>/ServletUsuarios</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
