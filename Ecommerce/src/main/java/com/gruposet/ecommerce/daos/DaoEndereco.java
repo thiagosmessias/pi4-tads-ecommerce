@@ -97,7 +97,7 @@ public class DaoEndereco implements InterfaceDao {
     public static ArrayList<Endereco> listAddress(Usuario usuario) {
         Database database = new Database();
         ArrayList<Endereco> enderecos = new ArrayList<>();
-        String query = "SELECT * FROM address WHERE user_id=?;";
+        String query = "SELECT * FROM enderecos WHERE user_id=?;";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);

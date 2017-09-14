@@ -9,6 +9,7 @@ import com.gruposet.ecommerce.models.Produto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -95,6 +96,27 @@ public class DaoProduto implements InterfaceDao {
     public void delete() {
         pro.setAtivo(false);
         this.update();
+    }
+
+    public ArrayList<Produto> listar() {
+        ArrayList<Produto> lista = new ArrayList<>();
+        String query = "SELECT * FROM produtos";
+        PreparedStatement stt;
+        try {
+            stt = database.getConnection().prepareCall(query);
+            ResultSet rs = stt.executeQuery(query);
+            while(rs.next()){
+                pro.setDescricao(rs.getString("descricao"));
+                pro.setModelo(rs.getString("modelo"));
+                pro.setMarca(rs.getString("marca"));
+                pro.setPreco(rs.getDouble("preco"));
+                lista.add(pro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lista;
     }
 
 }

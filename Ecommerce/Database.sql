@@ -44,5 +44,5 @@ CREATE TABLE IF NOT EXISTS `enderecos` (
     ativo           bit DEFAULT TRUE,
     padrao          bit,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES usuarios(id)
 );
