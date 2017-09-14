@@ -22,18 +22,24 @@ public class Database {
     private String user = "root";
     private String psw = "root";
     
-    public Database() {
+    private Connection createConnection() {
         Properties properties = new Properties();
         properties.put("user", user);
         properties.put("password", psw);
+        
         try {
             connection = DriverManager.getConnection(databaseUrl, properties);
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return connection;
     }
-
+    
+    // TODO: Error validations
     public Connection getConnection() {
+        if (connection == null) {
+            return this.createConnection();
+        }
         return connection;
     }
     
