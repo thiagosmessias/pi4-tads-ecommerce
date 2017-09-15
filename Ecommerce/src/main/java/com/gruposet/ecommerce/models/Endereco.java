@@ -1,31 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.models;
 
-/**
- *
- * @author thiagomessias
- */
 public class Endereco {
-    private int id;
-    private int user_id;
-    private int numero;
-    private String rua;
-    private String estado;
-    private String cidade;
-    private String cep;
-    private boolean padrao;
-    private boolean ativo;
-    
+
+    private int id, user_id, numero;
+    private String rua, estado, cidade, cep;
+    private boolean padrao, ativo;
+
     public Endereco() {}
-    
+
     public Endereco(int id) {
         this.id = id;
     }
-    
+
     public Endereco(Usuario usuario) {
         this.user_id = usuario.getId();
     }
@@ -112,5 +98,5 @@ public class Endereco {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
+
 }
