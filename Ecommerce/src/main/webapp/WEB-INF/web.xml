@@ -12,6 +12,10 @@
         <servlet-name>ListUsuarios</servlet-name>
         <jsp-file>/html/Usuarios/Usuarios.html</jsp-file>
     </servlet>
+    <servlet>
+        <servlet-name>ServletProduto</servlet-name>
+        <servlet-class>com.gruposet.ecommerce.servlets.ServletProduto</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/ServletUsuario</url-pattern>
@@ -19,6 +23,10 @@
     <servlet-mapping>
         <servlet-name>ListUsuarios</servlet-name>
         <url-pattern>/Usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletProduto</servlet-name>
+        <url-pattern>/ServletProduto</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
