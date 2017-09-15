@@ -3,17 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+function getApiUrl() {
+    var path = '/Ecommerce';
+    var protocol = document.location.protocol + '//';
+    var domain = document.location.host;
+    return protocol + domain + path;
+}
+
 function loadUser(id) {
     if (/[0-9]/g.test(id)) {
-        return jQuery.get('/ServletUsuario', {
+        return jQuery.getJSON(getApiUrl() + '/ServletUsuario', {
             id: id
         });
     }
     return null;
 }
 
-function listUsers() {
-    return jQuery.get('/ServletUsuario');
+function listUsers(callback) {
+    if (typeof callback == "function")
+    return jQuery.getJSON(getApiUrl() + '/ServletUsuario', callback);
 }
 
 function filForm(obj) {
@@ -60,7 +69,37 @@ function createRow(obj) {
 function putDataOnTable(vet) {
     if (Array.isArray(vet)) {
         vet.forEach(function(data) {
-           jQuery('.table').append(createRow(data));
+            if (jQuery('.table tr').exists()) {
+                jQuery('.table tr:last-child').after(createRow(data));
+            } else {
+                jQuery('.table').append(createRow(data));
+            }
         });
     }
 }
+
+function initialize() {
+    if(document.location.pathname.indexOf('/edit') >= 0) {
+        if (document.location.pathname.indexOf('id') >= 0) {
+            // Load user
+        } else if (document.location.pathname.indexOf('/new') >= 0) {
+            // Create user
+        } else {
+            // Show error
+        }
+    } else if (document.location.pathname.indexOf('id') >= 0) {
+        // Show user details
+    } else {
+        // Show list
+        listUsers(function(data) {
+            console.log(data);
+           if (Array.isArray(data) && data.length > 0) {
+               putDataOnTable(data);
+           }
+        }).fail(function() {
+            // Show error of load
+        });
+    }
+}
+// Initialize front
+window.addEventListener('load', initialize);
