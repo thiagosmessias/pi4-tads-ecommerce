@@ -20,8 +20,8 @@ public class DaoUsuario implements Daos {
     private Usuario cli;
 
     public DaoUsuario(Usuario user) {
-        db = new Database();
-        user = user;
+        database = new Database();
+        cli = user;
     }
 
     public void setCli(Usuario cli) {

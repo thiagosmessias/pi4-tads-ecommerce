@@ -9,20 +9,20 @@
         <servlet-class>com.gruposet.ecommerce.servlets.ServletEndereco</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListUsuario</servlet-name>
-        <jsp-file>/html/Usuarios/Usuario.jsp</jsp-file>
+        <servlet-name>ListUsuarios</servlet-name>
+        <jsp-file>/html/Usuarios/Usuarios.html</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ServletEndereco</servlet-name>
-        <url-pattern>/Endereco</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
-        <url-pattern>/Usuario</url-pattern>
+        <url-pattern>/ServletUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListUsuario</servlet-name>
-        <url-pattern>/Usuario/Usuarios</url-pattern>
+        <servlet-name>ListUsuarios</servlet-name>
+        <url-pattern>/Usuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEndereco</servlet-name>
+        <url-pattern>/ServletEndereco</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
