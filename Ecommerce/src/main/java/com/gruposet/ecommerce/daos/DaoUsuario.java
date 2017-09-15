@@ -27,7 +27,7 @@ public class DaoUsuario implements InterfaceDao {
 
     @Override
     public void insert() {
-        String query = "INSERT INTO usuarios (nome, apelido, cpf, celular, email, senha, acesso, ativo) VALUE (?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO usuarios (nome, apelido, cpf, data_nasc, celular, email, senha, acesso, ativo) VALUE (?,?,?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -35,11 +35,12 @@ public class DaoUsuario implements InterfaceDao {
             stt.setString(1, user.getNome());
             stt.setString(2, user.getApelido());
             stt.setString(3, user.getCpf());
-            stt.setString(4, user.getTelefone());
-            stt.setString(5, user.getEmail());
-            stt.setString(6, user.getSenha());
-            stt.setString(7, user.getAcesso());
-            stt.setBoolean(8, user.isAtivo());
+            stt.setString(4, user.getData_nasc());
+            stt.setString(5, user.getTelefone());
+            stt.setString(6, user.getEmail());
+            stt.setString(7, user.getSenha());
+            stt.setString(8, user.getPerfil());
+            stt.setBoolean(9, user.isAtivo());
 
             stt.execute();
         } catch (SQLException ex) {
@@ -49,16 +50,17 @@ public class DaoUsuario implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE usuarios SET nome=?, apelido=?, celular=?, email=?, senha=? WHERE id=?";
+        String query = "UPDATE usuarios SET nome=?, apelido=?, data_nasc=?, telefone=?, email=?, senha=? WHERE id=?";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
             stt.setString(1, user.getNome());
             stt.setString(2, user.getApelido());
-            stt.setString(3, user.getTelefone());
-            stt.setString(4, user.getEmail());
-            stt.setString(5, user.getSenha());
-            stt.setInt(6, user.getId());
+            stt.setString(3, user.getData_nasc());
+            stt.setString(4, user.getTelefone());
+            stt.setString(5, user.getEmail());
+            stt.setString(6, user.getSenha());
+            stt.setInt(7, user.getId());
 
             stt.execute();
         } catch (SQLException ex) {

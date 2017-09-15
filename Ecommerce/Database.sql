@@ -11,13 +11,13 @@
 CREATE TABLE IF NOT EXISTS `usuarios` (
     id              INT NOT NULL AUTO_INCREMENT,
     nome            varchar(255),
-    sobrenome       varchar(255),
-    email           varchar(255) NOT NULL,
-    telefone        varchar(255),
-    data_nasc       varchar(255),
-    perfil          int DEFAULT 0,
-    senha           varchar(255),
+    apelido         varchar(255),
     cpf             varchar(255),
+    data_nasc       varchar(255),
+    telefone        varchar(255),
+    email           varchar(255) NOT NULL,
+    senha           varchar(255),
+    perfil          int DEFAULT 0,
     ativo           bit,
     PRIMARY KEY (id)
 );

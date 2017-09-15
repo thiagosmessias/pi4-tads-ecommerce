@@ -3,14 +3,17 @@ package com.gruposet.ecommerce.models;
 public class Usuario {
 
     private int id;
-    private String nome, apelido, cpf, data_nasc, telefone, email, senha, acesso;
+    private String nome, apelido, cpf, data_nasc, 
+            telefone, email, senha, perfil;
     private boolean ativo;
 
     public Usuario(int id) {
         this.id = id;
     }
 
-    public Usuario(String nome, String apelido, String cpf, String data_nasc, String telefone, String email, String senha, boolean ativo) {
+    public Usuario(String nome, String apelido, String cpf, 
+            String data_nasc, String telefone, String email, 
+            String senha, boolean ativo) {
         this.nome = nome;
         this.apelido = apelido;
         this.cpf = cpf;
@@ -18,7 +21,7 @@ public class Usuario {
         this.telefone = telefone;
         this.email = email;
         this.senha = senha;
-        this.acesso = "cliente";
+        this.perfil = "cliente";
         this.ativo = ativo;
     }
 
@@ -86,8 +89,8 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public String getAcesso() {
-        return acesso;
+    public String getPerfil() {
+        return perfil;
     }
 
     public boolean isAtivo() {
