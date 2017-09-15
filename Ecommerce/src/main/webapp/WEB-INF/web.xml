@@ -20,10 +20,6 @@
         <servlet-name>ListUsuarios</servlet-name>
         <url-pattern>/Usuarios</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletEndereco</servlet-name>
-        <url-pattern>/ServletEndereco</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
