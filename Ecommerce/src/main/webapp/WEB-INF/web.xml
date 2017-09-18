@@ -9,7 +9,7 @@
         <servlet-class>com.gruposet.ecommerce.servlets.ServletEndereco</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListUsuarios</servlet-name>
+        <servlet-name>Usuarios</servlet-name>
         <jsp-file>/html/Usuarios/Usuarios.html</jsp-file>
     </servlet>
     <servlet>
@@ -21,7 +21,11 @@
         <url-pattern>/ServletUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListUsuarios</servlet-name>
+        <servlet-name>ServletEndereco</servlet-name>
+        <url-pattern>/Enderecos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Usuarios</servlet-name>
         <url-pattern>/Usuarios</url-pattern>
     </servlet-mapping>
     <servlet-mapping>

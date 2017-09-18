@@ -4,6 +4,7 @@ import com.gruposet.ecommerce.models.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,5 +95,35 @@ public class DaoUsuario implements InterfaceDao {
     public void delete() {
         user.setAtivo(false);
         this.update();
+    }
+    
+    public static ArrayList <Usuario> listUsers(String conditions) {
+        Database db = new Database();
+        String query = "SELECT * FROM usuarios WHERE 1=1 AND " + conditions;
+        PreparedStatement stt;
+        ArrayList <Usuario> users = new ArrayList<Usuario>();
+
+        try {
+            stt = db.getConnection().prepareCall(query);
+            ResultSet rs = stt.executeQuery(query);
+            while (rs.next()) {
+                users.add(new Usuario(
+                        rs.getInt("id"), 
+                        rs.getString("nome"),
+                        rs.getString("apelido"),
+                        rs.getString("cpf"),
+                        rs.getString("data_nasc"),
+                        rs.getString("telefone"),
+                        rs.getString("email"),
+                        rs.getBoolean("ativo")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return users;
+    }
+    
+    public static ArrayList <Usuario> listUsers() {
+        return listUsers("");
     }
 }
