@@ -21,6 +21,7 @@ public class DaoProduto implements InterfaceDao {
 
     private final Database database;
     private Produto pro;
+    private ArrayList<Produto>produtos;
 
     public DaoProduto(Produto pro) {
         database = new Database();
@@ -97,10 +98,16 @@ public class DaoProduto implements InterfaceDao {
         pro.setAtivo(false);
         this.update();
     }
-
-    public ArrayList<Produto> listar() {
-        ArrayList<Produto> lista = new ArrayList<>();
+    
+    @Override
+    public void list(String condition) {
+        
         String query = "SELECT * FROM produtos";
+        if (condition.length() == 0) {
+            query += " WHERE " + condition;
+        }
+        query += "query";
+        
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
@@ -110,13 +117,10 @@ public class DaoProduto implements InterfaceDao {
                 pro.setModelo(rs.getString("modelo"));
                 pro.setMarca(rs.getString("marca"));
                 pro.setPreco(rs.getDouble("preco"));
-                lista.add(pro);
+                produtos.add(pro);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return lista;
     }
-
 }

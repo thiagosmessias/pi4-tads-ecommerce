@@ -12,6 +12,7 @@ public class DaoUsuario implements InterfaceDao {
 
     private final Database database;
     private Usuario user;
+    private ArrayList <Usuario> users;
 
     public DaoUsuario(Usuario user) {
         database = new Database();
@@ -97,11 +98,16 @@ public class DaoUsuario implements InterfaceDao {
         this.update();
     }
     
-    public static ArrayList <Usuario> listUsers(String conditions) {
+    @Override
+    public void list(String condition) {
         Database db = new Database();
-        String query = "SELECT * FROM usuarios WHERE 1=1 AND " + conditions;
+        String query = "SELECT * FROM usuarios";
+        if (condition.length() != 0) {
+            query += " WHERE " + condition;
+        }
+        query += ";";
         PreparedStatement stt;
-        ArrayList <Usuario> users = new ArrayList<Usuario>();
+        this.users = new ArrayList<Usuario>();
 
         try {
             stt = db.getConnection().prepareCall(query);
@@ -120,10 +126,5 @@ public class DaoUsuario implements InterfaceDao {
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return users;
-    }
-    
-    public static ArrayList <Usuario> listUsers() {
-        return listUsers("");
     }
 }
