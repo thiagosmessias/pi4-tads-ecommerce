@@ -1,7 +1,6 @@
 package com.gruposet.ecommerce.daos;
 
 import com.gruposet.ecommerce.models.Endereco;
-import com.gruposet.ecommerce.models.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +22,7 @@ public class DaoEndereco implements InterfaceDao {
     public DaoEndereco() {
         this.database = new Database();
     }
-
+    
     @Override
     public void insert() {
         String query = "INSERT INTO address (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
@@ -65,8 +64,12 @@ public class DaoEndereco implements InterfaceDao {
     }
 
     @Override
-    public void select() {
-        String query = "SELECT * FROM address WHERE id=? AND ativo=true";
+    public void select(String condition) {
+        String query = "SELECT * FROM address";
+        if (condition != null && condition.length() > 0) {
+            query += " WHERE " + condition;
+        }
+        query += ";";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
@@ -94,8 +97,9 @@ public class DaoEndereco implements InterfaceDao {
         endereco.setPadrao(false);
         this.update();
     }
-
-    public  void list(String condition) {
+    
+    @Override
+    public void list(String condition) {
         Database database = new Database();
         enderecos = new ArrayList<>();
         String query = "SELECT * FROM enderecos";
@@ -124,4 +128,15 @@ public class DaoEndereco implements InterfaceDao {
             Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @Override
+    public ArrayList getList() {
+        return this.enderecos;
+    }
+    
+    @Override
+    public Object get() {
+        return this.endereco;
+    }
+    
 }

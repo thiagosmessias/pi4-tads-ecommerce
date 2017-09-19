@@ -1,7 +1,9 @@
 package com.gruposet.ecommerce.servlets;
 
 import com.google.gson.Gson;
+import com.gruposet.ecommerce.daos.DaoProduto;
 import com.gruposet.ecommerce.daos.DaoUsuario;
+import com.gruposet.ecommerce.daos.InterfaceDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,38 +14,30 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletUsuario", urlPatterns = "/user")
 public class ServletUsuario extends HttpServlet {
-
+    private InterfaceDao dao;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet ServletEndereco</title>");
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet ServletEndereco at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-//        System.out.println("Recive request");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        this.dao = new DaoUsuario();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-        String json = null;
-        String id = request.getParameter("id");
+        String res = "";
+        Gson gson = new Gson();
+        response.setStatus(HttpServletResponse.SC_OK);
+        final String id = request.getParameter("id");
         if (id == null || id.length() == 0) {
-            Gson gson = new Gson();
-            json = gson.toJson(DaoUsuario.listUsers());
+            dao.select("id=" + id);
+            res = gson.toJson(dao.getList());
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+        
         try (PrintWriter out = response.getWriter()) {
-            out.print(json);
+            out.print(res);
             out.flush();
         }
     }

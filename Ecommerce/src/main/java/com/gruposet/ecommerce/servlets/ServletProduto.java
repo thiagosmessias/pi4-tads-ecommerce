@@ -1,5 +1,6 @@
 package com.gruposet.ecommerce.servlets;
 
+import com.google.gson.Gson;
 import com.gruposet.ecommerce.daos.DaoProduto;
 import com.gruposet.ecommerce.daos.InterfaceDao;
 import com.gruposet.ecommerce.models.Produto;
@@ -13,26 +14,36 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletProduto", urlPatterns = "produto")
 public class ServletProduto extends HttpServlet {
-    
+    private InterfaceDao dao;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletProduto</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletProduto at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        this.dao = new DaoProduto();
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
+        String res = "";
+        Gson gson = new Gson();
+        response.setStatus(HttpServletResponse.SC_OK);
+        if (request.getParameter("id") != null) {
+            if (request.getParameter("id").length() == 0) {
+                System.out.println("Erro");
+            }
+            final String end_id = request.getParameter("id");
+            final int id = Integer.parseInt(end_id);
+            dao.select("id=" + end_id);
+            res = gson.toJson(dao.get());
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
+        
+        try (PrintWriter out = response.getWriter()) {
+            out.print(res);
+            out.flush();
+        }
+        
     }
     
     @Override

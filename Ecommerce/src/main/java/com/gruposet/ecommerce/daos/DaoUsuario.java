@@ -13,7 +13,11 @@ public class DaoUsuario implements InterfaceDao {
     private final Database database;
     private Usuario user;
     private ArrayList <Usuario> users;
-
+    
+    public DaoUsuario() {
+        database = new Database();
+    }
+    
     public DaoUsuario(Usuario user) {
         database = new Database();
         this.user = user;
@@ -21,10 +25,6 @@ public class DaoUsuario implements InterfaceDao {
 
     public void setUser(Usuario user) {
         this.user = user;
-    }
-
-    public Usuario getUser() {
-        return user;
     }
 
     @Override
@@ -71,12 +71,16 @@ public class DaoUsuario implements InterfaceDao {
     }
 
     @Override
-    public void select() {
-        String query = "SELECT * FROM usuarios WHERE id=? AND ativo=true";
+    public void select(String condition) {
+        String query = "SELECT * FROM usuarios";
+        if (condition != null && condition.length() > 0) {
+            query += " WHERE " + condition;
+        }
+        query += ";";
+        
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
-            stt.setInt(1, user.getId());
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
                 user.setNome(rs.getString("nome"));
@@ -107,7 +111,7 @@ public class DaoUsuario implements InterfaceDao {
         }
         query += ";";
         PreparedStatement stt;
-        this.users = new ArrayList<Usuario>();
+        this.users = new ArrayList<>();
 
         try {
             stt = db.getConnection().prepareCall(query);
@@ -126,5 +130,15 @@ public class DaoUsuario implements InterfaceDao {
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public ArrayList getList() {
+        return this.users;
+    }
+
+    @Override
+    public Object get() {
+        return this.user;
     }
 }

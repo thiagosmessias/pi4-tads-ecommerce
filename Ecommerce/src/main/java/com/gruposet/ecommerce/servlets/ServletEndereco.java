@@ -1,5 +1,6 @@
 package com.gruposet.ecommerce.servlets;
 
+import com.google.gson.Gson;
 import com.gruposet.ecommerce.daos.DaoEndereco;
 import com.gruposet.ecommerce.helpers.Messages;
 import com.gruposet.ecommerce.models.Endereco;
@@ -14,35 +15,48 @@ import javax.servlet.http.HttpServletResponse;
 import com.gruposet.ecommerce.daos.InterfaceDao;
 
 public class ServletEndereco extends HttpServlet {
+    private InterfaceDao dao;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ServletEndereco</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ServletEndereco at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        this.dao = new DaoEndereco();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-        if (request.getParameter("user_id").length() == 0) {
-            String userId = request.getParameter("user_id");
-            ArrayList<Endereco> enderecos = DaoEndereco.listAddress(Integer.valueOf(userId));
-
-        } else if (request.getParameter("id").length() == 0) {
-            String id = request.getParameter("id");
-            Endereco endereco = new Endereco(Integer.valueOf(id));
-            InterfaceDao db = new DaoEndereco(endereco);
+        String res = "";
+        Gson gson = new Gson();
+        response.setStatus(HttpServletResponse.SC_OK);
+        
+        if (request.getParameter("user_id") != null) {
+            if (request.getParameter("user_id").length() == 0) {
+                System.out.print("Erro");
+            }
+            
+            final String userId = request.getParameter("user_id");
+            final int user_id = Integer.parseInt(userId);
+            dao.list("user_id=" + userId);
+            res = gson.toJson(dao.getList());
+           
+        } else if (request.getParameter("id") != null) {
+            if (request.getParameter("id").length() == 0) {
+                System.out.println("Erro");
+            }
+            final String end_id = request.getParameter("id");
+            final int id = Integer.parseInt(end_id);
+            dao.select("id=" + end_id);
+            res = gson.toJson(dao.get());
+        } else {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+        
+        try (PrintWriter out = response.getWriter()) {
+            out.print(res);
+            out.flush();
+        }
+        
     }
 
     @Override

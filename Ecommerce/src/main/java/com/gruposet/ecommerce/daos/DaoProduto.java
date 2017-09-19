@@ -27,15 +27,11 @@ public class DaoProduto implements InterfaceDao {
         database = new Database();
         this.pro = pro;
     }
-
-    public void setPro(Produto pro) {
-        this.pro = pro;
+    
+    public DaoProduto() {
+        database = new Database();
     }
-
-    public Produto getPro() {
-        return pro;
-    }
-
+    
     @Override
     public void insert() {
         String query = "INSERT INTO produtos (estoque, modelo, marca, descricao, preco, ativo) VALUE (?,?,?,?,?,?)";
@@ -74,12 +70,16 @@ public class DaoProduto implements InterfaceDao {
     }
 
     @Override
-    public void select() {
-        String query = "SELECT * FROM produtos WHERE id=? AND ativo=true";
+    public void select(String condition) {
+        String query = "SELECT * FROM produtos";
+        if (condition != null && condition.length() > 0) {
+            query += " WHERE " + condition;
+        }
+        query += ";";
+        
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
-            stt.setInt(1, pro.getId());
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
                 pro.setEstoque(rs.getInt("estoque"));
@@ -117,10 +117,21 @@ public class DaoProduto implements InterfaceDao {
                 pro.setModelo(rs.getString("modelo"));
                 pro.setMarca(rs.getString("marca"));
                 pro.setPreco(rs.getDouble("preco"));
+                pro.setId(rs.getInt("id"));
                 produtos.add(pro);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @Override
+    public ArrayList getList() {
+        return this.produtos;
+    }
+
+    @Override
+    public Object get() {
+        return this.pro;
     }
 }
