@@ -52,7 +52,7 @@ public class DaoProduto implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE produto SET estoque=?, modelo=?, marca=?, descricao=?, preco=? WHERE id=?";
+        String query = "UPDATE produtos SET estoque=?, modelo=?, marca=?, descricao=?, preco=? WHERE id=?";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
