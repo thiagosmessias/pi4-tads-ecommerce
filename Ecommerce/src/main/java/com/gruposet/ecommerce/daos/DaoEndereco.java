@@ -139,4 +139,8 @@ public class DaoEndereco implements InterfaceDao {
         return this.endereco;
     }
     
+    @Override
+    public void set(Object obj) {
+        this.endereco = (Endereco) obj;
+    }
 }

@@ -20,12 +20,12 @@ import java.util.logging.Logger;
 public class DaoProduto implements InterfaceDao {
 
     private final Database database;
-    private Produto pro;
+    private Produto produto;
     private ArrayList<Produto>produtos;
 
     public DaoProduto(Produto pro) {
         database = new Database();
-        this.pro = pro;
+        this.produto = pro;
     }
     
     public DaoProduto() {
@@ -38,12 +38,12 @@ public class DaoProduto implements InterfaceDao {
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
-            stt.setInt(1, pro.getEstoque());
-            stt.setString(2, pro.getModelo());
-            stt.setString(3, pro.getMarca());
-            stt.setString(4, pro.getDescricao());
-            stt.setDouble(5, pro.getPreco());
-            stt.setBoolean(6, pro.isAtivo());
+            stt.setInt(1, produto.getEstoque());
+            stt.setString(2, produto.getModelo());
+            stt.setString(3, produto.getMarca());
+            stt.setString(4, produto.getDescricao());
+            stt.setDouble(5, produto.getPreco());
+            stt.setBoolean(6, produto.isAtivo());
             stt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,12 +56,12 @@ public class DaoProduto implements InterfaceDao {
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
-            stt.setInt(1, pro.getEstoque());
-            stt.setString(2, pro.getModelo());
-            stt.setString(3, pro.getMarca());
-            stt.setString(4, pro.getDescricao());
-            stt.setDouble(5, pro.getPreco());
-            stt.setInt(6, pro.getId());
+            stt.setInt(1, produto.getEstoque());
+            stt.setString(2, produto.getModelo());
+            stt.setString(3, produto.getMarca());
+            stt.setString(4, produto.getDescricao());
+            stt.setDouble(5, produto.getPreco());
+            stt.setInt(6, produto.getId());
 
             stt.execute();
         } catch (SQLException ex) {
@@ -82,11 +82,11 @@ public class DaoProduto implements InterfaceDao {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
-                pro.setEstoque(rs.getInt("estoque"));
-                pro.setModelo(rs.getString("modelo"));
-                pro.setMarca(rs.getString("marca"));
-                pro.setDescricao(rs.getString("descricao"));
-                pro.setPreco(rs.getDouble("preco"));
+                produto.setEstoque(rs.getInt("estoque"));
+                produto.setModelo(rs.getString("modelo"));
+                produto.setMarca(rs.getString("marca"));
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setPreco(rs.getDouble("preco"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -95,7 +95,7 @@ public class DaoProduto implements InterfaceDao {
 
     @Override
     public void delete() {
-        pro.setAtivo(false);
+        produto.setAtivo(false);
         this.update();
     }
     
@@ -113,12 +113,12 @@ public class DaoProduto implements InterfaceDao {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while(rs.next()){
-                pro.setDescricao(rs.getString("descricao"));
-                pro.setModelo(rs.getString("modelo"));
-                pro.setMarca(rs.getString("marca"));
-                pro.setPreco(rs.getDouble("preco"));
-                pro.setId(rs.getInt("id"));
-                produtos.add(pro);
+                produto.setDescricao(rs.getString("descricao"));
+                produto.setModelo(rs.getString("modelo"));
+                produto.setMarca(rs.getString("marca"));
+                produto.setPreco(rs.getDouble("preco"));
+                produto.setId(rs.getInt("id"));
+                produtos.add(produto);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,6 +132,11 @@ public class DaoProduto implements InterfaceDao {
 
     @Override
     public Object get() {
-        return this.pro;
+        return this.produto;
+    }
+
+    @Override
+    public void set(Object obj) {
+        this.produto = (Produto) obj;
     }
 }

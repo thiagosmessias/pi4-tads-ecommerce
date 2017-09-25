@@ -18,4 +18,6 @@ public interface InterfaceDao {
     
     public Object get();
     
+    public void set(Object obj);
+    
 }

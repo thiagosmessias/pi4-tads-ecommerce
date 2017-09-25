@@ -1,9 +1,9 @@
 package com.gruposet.ecommerce.servlets;
 
 import com.google.gson.Gson;
-import com.gruposet.ecommerce.daos.DaoProduto;
 import com.gruposet.ecommerce.daos.DaoUsuario;
 import com.gruposet.ecommerce.daos.InterfaceDao;
+import com.gruposet.ecommerce.models.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -45,17 +45,90 @@ public class ServletUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-
-        if (request.getParameter("delete") == null || request.getParameter("delete").length() == 0) {
-            String id = request.getParameter("id");
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        if (id != null) {
+            this.dao.select("id=" + id);
         }
-        String nome = request.getParameter("nome");
-        String apelido = request.getParameter("apelido");
-        String cpf = request.getParameter("cpf");
-        String data_nasc = request.getParameter("data_nasc");
-        String telefone = request.getParameter("telefone");
-        String email = request.getParameter("email");
-        String senha = request.getParameter("senha");
+        
+        // Delete
+        if (request.getRequestURI().contains("delete") && id != null) {
+            this.dao.delete();
+            response.setStatus(HttpServletResponse.SC_OK);
+            
+        // Update
+        } else if(request.getRequestURI().contains("update") && id != null) {
+            Usuario usuario = (Usuario) this.dao.get();
 
+            String nome = request.getParameter("nome");
+            if (nome != null) {
+              usuario.setNome(nome);
+            }
+            String apelido = request.getParameter("apelido");
+            if (apelido != null) {
+              usuario.setApelido(apelido);
+            }
+            String cpf = request.getParameter("cpf");
+            if (cpf != null) {
+              usuario.setCpf(cpf);
+            }
+            String data_nasc = request.getParameter("data_nasc");
+            if (data_nasc != null) {
+              usuario.setData_nasc(data_nasc);
+            }
+            String telefone = request.getParameter("telefone");
+            if (telefone != null) {
+              usuario.setTelefone(telefone);
+            }
+            String email = request.getParameter("email");
+            if (email != null) {
+              usuario.setEmail(email);
+            }
+            String senha = request.getParameter("senha");
+            if (senha != null) {
+              usuario.setSenha(senha);
+            }
+            if (!this.dao.get().equals(usuario)) {
+                this.dao.set(usuario);
+                this.dao.update();
+            }
+        // Insert
+        } else {
+            Usuario usuario = new Usuario();
+            String nome = request.getParameter("nome");
+            if (nome != null) {
+              usuario.setNome(nome);
+            }
+            String apelido = request.getParameter("apelido");
+            if (apelido != null) {
+              usuario.setApelido(apelido);
+            }
+            String cpf = request.getParameter("cpf");
+            if (cpf != null) {
+              usuario.setCpf(cpf);
+            }
+            String data_nasc = request.getParameter("data_nasc");
+            if (data_nasc != null) {
+              usuario.setData_nasc(data_nasc);
+            }
+            String telefone = request.getParameter("telefone");
+            if (telefone != null) {
+              usuario.setTelefone(telefone);
+            }
+            String email = request.getParameter("email");
+            if (email != null) {
+              usuario.setEmail(email);
+            }
+            String senha = request.getParameter("senha");
+            if (senha != null) {
+              usuario.setSenha(senha);
+            }
+            this.dao.set(usuario);
+            this.dao.insert();
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        try (PrintWriter out = response.getWriter()) {
+            out.print("");
+            out.flush();
+        }
     }
 }

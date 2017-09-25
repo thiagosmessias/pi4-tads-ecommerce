@@ -4,17 +4,23 @@
  * and open the template in the editor.
  */
 
-angular.module('AppMain', ["ngRoute"])
-.config(function ($routeProvider){
-  $routeProvider
-  .when("/", {
-    temaplteUrl: "/templates/index.html"
-  }).when("/index", {
-    templateUrl: "/templates/index.html"
-  })
-  .otherwise('/');
+angular.module('AppMain', ['ngRoute'])
+.config(function ($routeProvider, $locationProvider) {
+  $locationProvider.hashPrefix('!');
 
-  $routeProvider.caseInsensitiveMatch = true;
-}).controller("IndexController", function($scope) {
+  $routeProvider
+  .when('/index',{
+    templateUrl: "templates/index.html"
+  })
+  .when('usuarios', {
+    templateUrl: "templates/usuarios/lista/html"
+  })
+  .otherwise('/index');
+})
+
+// Define controller
+.controller("IndexController", function($scope, $rootScope) {
+  $rootScope.apiUrl = "http://localhost:8080/Ecommerce/";
   $scope.hi = "Hello World";
+  console.log('hereee');
 });
