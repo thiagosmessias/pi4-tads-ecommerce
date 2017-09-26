@@ -141,4 +141,8 @@ public class DaoUsuario implements InterfaceDao {
     public Object get() {
         return this.user;
     }
+    @Override
+    public void set(Object obj) {
+        this.user = (Usuario) obj;
+    }
 }

@@ -25,7 +25,7 @@ public class DaoEndereco implements InterfaceDao {
     
     @Override
     public void insert() {
-        String query = "INSERT INTO address (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
+        String query = "INSERT INTO enderecos (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -45,7 +45,7 @@ public class DaoEndereco implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE address SET user_id=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=? WHERE id=?;";
+        String query = "UPDATE enderecos SET user_id=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=? WHERE id=?;";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -65,7 +65,7 @@ public class DaoEndereco implements InterfaceDao {
 
     @Override
     public void select(String condition) {
-        String query = "SELECT * FROM address";
+        String query = "SELECT * FROM enderecos";
         if (condition != null && condition.length() > 0) {
             query += " WHERE " + condition;
         }
@@ -139,4 +139,8 @@ public class DaoEndereco implements InterfaceDao {
         return this.endereco;
     }
     
+    @Override
+    public void set(Object obj) {
+        this.endereco = (Endereco) obj;
+    }
 }
