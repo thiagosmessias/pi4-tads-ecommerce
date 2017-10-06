@@ -13,10 +13,10 @@ public class Produto {
 
     private int id, estoque;
     private String modelo, marca, descricao;
-    private Double preco;
+    private double preco;
     private boolean ativo;
 
-    public Produto(int estoque, String modelo, String marca, String descricao, Double preco, boolean ativo) {
+    public Produto(int estoque, String modelo, String marca, String descricao, double preco, boolean ativo) {
         this.estoque = estoque;
         this.modelo = modelo;
         this.marca = marca;
@@ -65,7 +65,7 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Double getPreco() {
+    public double getPreco() {
         return preco;
     }
 

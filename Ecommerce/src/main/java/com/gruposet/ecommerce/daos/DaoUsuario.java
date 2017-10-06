@@ -12,12 +12,12 @@ public class DaoUsuario implements InterfaceDao {
 
     private final Database database;
     private Usuario user;
-    private ArrayList <Usuario> users;
-    
+    private ArrayList<Usuario> users;
+
     public DaoUsuario() {
         database = new Database();
     }
-    
+
     public DaoUsuario(Usuario user) {
         database = new Database();
         this.user = user;
@@ -77,7 +77,7 @@ public class DaoUsuario implements InterfaceDao {
             query += " WHERE " + condition;
         }
         query += ";";
-        
+
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
@@ -101,7 +101,7 @@ public class DaoUsuario implements InterfaceDao {
         user.setAtivo(false);
         this.update();
     }
-    
+
     @Override
     public void list(String condition) {
         Database db = new Database();
@@ -118,7 +118,7 @@ public class DaoUsuario implements InterfaceDao {
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
                 users.add(new Usuario(
-                        rs.getInt("id"), 
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("apelido"),
                         rs.getString("cpf"),
@@ -141,8 +141,29 @@ public class DaoUsuario implements InterfaceDao {
     public Object get() {
         return this.user;
     }
+
     @Override
     public void set(Object obj) {
         this.user = (Usuario) obj;
     }
+
+    public boolean cpfDuplicado(String cpf) {
+        String query = "SELECT COUNT(*) FROM usuario WHERE cpf = ? AND ativo = true";
+        PreparedStatement stt;
+        ResultSet rs;
+        int numDeCounts = 0;
+        try {
+            stt = database.getConnection().prepareStatement(query);
+            stt.setString(1, cpf);
+            rs = stt.executeQuery();
+
+            while (rs.next()) {
+                numDeCounts = rs.getInt("COUNT(*)");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return numDeCounts != 0;
+    }
+
 }

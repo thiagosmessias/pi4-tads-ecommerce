@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "ServletUsuario", urlPatterns = "/user")
+@WebServlet(name = "ServletUsuario", urlPatterns = "usuario")
 public class ServletUsuario extends HttpServlet {
     private InterfaceDao dao;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

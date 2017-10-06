@@ -7,7 +7,6 @@ import com.gruposet.ecommerce.models.Endereco;
 import com.gruposet.ecommerce.models.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

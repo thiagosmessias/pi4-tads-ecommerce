@@ -1,54 +1,51 @@
 package com.gruposet.ecommerce.services;
 
 import com.gruposet.ecommerce.models.Usuario;
+import com.gruposet.ecommerce.daos.DaoUsuario;
 import java.util.InputMismatchException;
 
 public abstract class ServiceUsuario {
 
-    public static boolean validateUser(Usuario user) {
-        return validateName(user.getNome())
-                || validateNickname(user.getApelido()) 
-                || validateCPF(user.getCpf())
-                || validateBirth(user.getData_nasc())
-                || validatePhone(user.getTelefone())
-                || validateEmail(user.getEmail())
-                || validatePassword(user.getSenha());
+    public static boolean validaUsuario(Usuario usuario) {
+        return validaNome(usuario.getNome())
+                || validaApelido(usuario.getApelido()) 
+                || validaCpf(usuario.getCpf())
+                || validaNascimento(usuario.getData_nasc())
+                || validaTelefone(usuario.getTelefone())
+                || validaEmail(usuario.getEmail())
+                || validaSenha(usuario.getSenha())
+                || validaCpf(usuario.getCpf());
     }
 
-    private static boolean validateName(String name) {
-        return "".equals(name);
+    private static boolean validaNome(String nome) {
+        return "".equals(nome);
     }
 
-    private static boolean validateNickname(String nickname) {
-        return "".equals(nickname);
+    private static boolean validaApelido(String apelido) {
+        return "".equals(apelido);
     }
 
-    private static boolean validateBirth(String nascimento) {
+    private static boolean validaNascimento(String nascimento) {
         return "".equals(nascimento);
     }
 
-    private static boolean validatePhone(String phone) {
-        return "".equals(phone);
+    private static boolean validaTelefone(String telefone) {
+        return "".equals(telefone);
     }
 
-    private static boolean validateEmail(String email) {
+    private static boolean validaEmail(String email) {
         return "".equals(email) || !email.contains("@");
     }
 
-    private static boolean validatePassword(String password) {
-        return "".equals(password);
+    private static boolean validaSenha(String senha) {
+        return "".equals(senha);
     }
     
-    private static boolean validateCPF(String cpf){
-        return isCpf(cpf);
+    private static boolean validaCpf(String cpf){
+        DaoUsuario dao = new DaoUsuario();
+        return dao.cpfDuplicado(cpf) && !isCpf(cpf);
     }
 
-    //Implementar busca e verificação de CPF duplicado
-//    private static boolean isCpfDuplicate(String cpf) {
-//        
-//        return false;
-//    }
-    
     private static boolean isCpf(String cpf) {
         String parte1 = cpf.substring(0, 3);
         String parte2 = cpf.substring(4, 7);
