@@ -5,27 +5,19 @@ import com.gruposet.ecommerce.models.Endereco;
 public abstract class ServiceEndereco {
 
     public static boolean validaEndereco(Endereco end) {
-        return true;
+        return validaNumero(end.getNumero())
+                || validaPalavra(end.getRua())
+                || validaPalavra(end.getEstado())
+                || validaPalavra(end.getEstado())
+                || validaPalavra(end.getCep());
     }
-    
-    private static boolean validaNumero(int num){
-        
+
+    private static boolean validaNumero(int num) {
+        return num <= 0;
     }
-    
-    private static boolean validaRua(String rua){
-        
+
+    private static boolean validaPalavra(String palavra) {
+        return "".equals(palavra);
     }
-    
-    private static boolean validaEstado(String estado){
-        
-    }
-    
-    private static boolean validaCidade(String cidade){
-        
-    }
-    
-    private static boolean validaCep(String cep){
-        
-    }
-    
+
 }

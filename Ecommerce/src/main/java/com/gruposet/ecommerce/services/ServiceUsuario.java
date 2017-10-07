@@ -7,38 +7,21 @@ import java.util.InputMismatchException;
 public abstract class ServiceUsuario {
 
     public static boolean validaUsuario(Usuario usuario) {
-        return validaNome(usuario.getNome())
-                || validaApelido(usuario.getApelido()) 
-                || validaCpf(usuario.getCpf())
-                || validaNascimento(usuario.getData_nasc())
-                || validaTelefone(usuario.getTelefone())
+        return validaPalavra(usuario.getNome())
+                || validaPalavra(usuario.getApelido()) 
+                || validaPalavra(usuario.getData_nasc())
+                || validaPalavra(usuario.getTelefone())
                 || validaEmail(usuario.getEmail())
-                || validaSenha(usuario.getSenha())
+                || validaPalavra(usuario.getSenha())
                 || validaCpf(usuario.getCpf());
     }
 
-    private static boolean validaNome(String nome) {
-        return "".equals(nome);
-    }
-
-    private static boolean validaApelido(String apelido) {
-        return "".equals(apelido);
-    }
-
-    private static boolean validaNascimento(String nascimento) {
-        return "".equals(nascimento);
-    }
-
-    private static boolean validaTelefone(String telefone) {
-        return "".equals(telefone);
+    private static boolean validaPalavra(String palavra) {
+        return "".equals(palavra);
     }
 
     private static boolean validaEmail(String email) {
         return "".equals(email) || !email.contains("@");
-    }
-
-    private static boolean validaSenha(String senha) {
-        return "".equals(senha);
     }
     
     private static boolean validaCpf(String cpf){
