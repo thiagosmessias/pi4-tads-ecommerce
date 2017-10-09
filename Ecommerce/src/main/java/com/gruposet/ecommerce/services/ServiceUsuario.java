@@ -8,7 +8,7 @@ public abstract class ServiceUsuario {
 
     public static boolean validaUsuario(Usuario usuario) {
         return validaPalavra(usuario.getNome())
-                || validaPalavra(usuario.getApelido()) 
+                || validaPalavra(usuario.getApelido())
                 || validaPalavra(usuario.getData_nasc())
                 || validaPalavra(usuario.getTelefone())
                 || validaEmail(usuario.getEmail())
@@ -23,8 +23,8 @@ public abstract class ServiceUsuario {
     private static boolean validaEmail(String email) {
         return "".equals(email) || !email.contains("@");
     }
-    
-    private static boolean validaCpf(String cpf){
+
+    private static boolean validaCpf(String cpf) {
         DaoUsuario dao = new DaoUsuario();
         return dao.cpfDuplicado(cpf) && !isCpf(cpf);
     }
