@@ -34,7 +34,7 @@ public class DaoProduto implements InterfaceDao {
     
     @Override
     public void insert() {
-        String query = "INSERT INTO produtos (estoque, modelo, marca, descricao, preco, ativo) VALUE (?,?,?,?,?,?)";
+        String query = "INSERT INTO produtos (estoque, modelo, marca, descricao, tamanho, preco) VALUE (?,?,?,?,?,?)";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -42,8 +42,8 @@ public class DaoProduto implements InterfaceDao {
             stt.setString(2, produto.getModelo());
             stt.setString(3, produto.getMarca());
             stt.setString(4, produto.getDescricao());
-            stt.setDouble(5, produto.getPreco());
-            stt.setBoolean(6, produto.isAtivo());
+            stt.setString(5, produto.getTamanho());
+            stt.setDouble(6, produto.getPreco());
             stt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +52,7 @@ public class DaoProduto implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE produtos SET estoque=?, modelo=?, marca=?, descricao=?, preco=? WHERE id=?";
+        String query = "UPDATE produtos SET estoque=?, modelo=?, marca=?, descricao=?, tamanho=?, preco=?, ativo=? WHERE id=?";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -60,8 +60,10 @@ public class DaoProduto implements InterfaceDao {
             stt.setString(2, produto.getModelo());
             stt.setString(3, produto.getMarca());
             stt.setString(4, produto.getDescricao());
-            stt.setDouble(5, produto.getPreco());
-            stt.setInt(6, produto.getId());
+            stt.setString(5, produto.getTamanho());
+            stt.setDouble(6, produto.getPreco());
+            stt.setBoolean(7, produto.isAtivo());
+            stt.setInt(8, produto.getId());
 
             stt.execute();
         } catch (SQLException ex) {

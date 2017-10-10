@@ -23,13 +23,9 @@ public class DaoUsuario implements InterfaceDao {
         this.user = user;
     }
 
-    public void setUser(Usuario user) {
-        this.user = user;
-    }
-
     @Override
     public void insert() {
-        String query = "INSERT INTO usuarios (nome, apelido, cpf, data_nasc, celular, email, senha, acesso, ativo) VALUE (?,?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO usuarios (nome, apelido, cpf, data_nasc, celular, email, senha, acesso) VALUE (?,?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -42,7 +38,6 @@ public class DaoUsuario implements InterfaceDao {
             stt.setString(6, user.getEmail());
             stt.setString(7, user.getSenha());
             stt.setString(8, user.getPerfil());
-            stt.setBoolean(9, user.isAtivo());
 
             stt.execute();
         } catch (SQLException ex) {
@@ -52,7 +47,7 @@ public class DaoUsuario implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE usuarios SET nome=?, apelido=?, data_nasc=?, telefone=?, email=?, senha=? WHERE id=?";
+        String query = "UPDATE usuarios SET nome=?, apelido=?, data_nasc=?, telefone=?, email=?, senha=? ativo=? WHERE id=?";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -62,7 +57,8 @@ public class DaoUsuario implements InterfaceDao {
             stt.setString(4, user.getTelefone());
             stt.setString(5, user.getEmail());
             stt.setString(6, user.getSenha());
-            stt.setInt(7, user.getId());
+            stt.setBoolean(7, user.isAtivo());
+            stt.setInt(8, user.getId());
 
             stt.execute();
         } catch (SQLException ex) {
@@ -124,8 +120,7 @@ public class DaoUsuario implements InterfaceDao {
                         rs.getString("cpf"),
                         rs.getString("data_nasc"),
                         rs.getString("telefone"),
-                        rs.getString("email"),
-                        rs.getBoolean("ativo")));
+                        rs.getString("email")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.gruposet.ecommerce.daos.DaoUsuario;
 import com.gruposet.ecommerce.daos.InterfaceDao;
 import com.gruposet.ecommerce.models.Usuario;
+import com.gruposet.ecommerce.services.ServiceUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,9 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "ServletUsuario", urlPatterns = "usuario")
 public class ServletUsuario extends HttpServlet {
+
     private InterfaceDao dao;
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         this.dao = new DaoUsuario();
@@ -35,7 +37,7 @@ public class ServletUsuario extends HttpServlet {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        
+
         try (PrintWriter out = response.getWriter()) {
             out.print(res);
             out.flush();
@@ -49,81 +51,59 @@ public class ServletUsuario extends HttpServlet {
         if (id != null) {
             this.dao.select("id=" + id);
         }
-        
+
         // Delete
         if (request.getRequestURI().contains("delete") && id != null) {
             this.dao.delete();
             response.setStatus(HttpServletResponse.SC_OK);
-            
-        // Update
-        } else if(request.getRequestURI().contains("update") && id != null) {
-            Usuario usuario = (Usuario) this.dao.get();
 
+            // Update
+        } else if (request.getRequestURI().contains("update") && id != null) {
             String nome = request.getParameter("nome");
-            if (nome != null) {
-              usuario.setNome(nome);
-            }
             String apelido = request.getParameter("apelido");
-            if (apelido != null) {
-              usuario.setApelido(apelido);
-            }
             String cpf = request.getParameter("cpf");
-            if (cpf != null) {
-              usuario.setCpf(cpf);
-            }
             String data_nasc = request.getParameter("data_nasc");
-            if (data_nasc != null) {
-              usuario.setData_nasc(data_nasc);
-            }
             String telefone = request.getParameter("telefone");
-            if (telefone != null) {
-              usuario.setTelefone(telefone);
-            }
             String email = request.getParameter("email");
-            if (email != null) {
-              usuario.setEmail(email);
-            }
             String senha = request.getParameter("senha");
-            if (senha != null) {
-              usuario.setSenha(senha);
-            }
+
+            Usuario usuario = (Usuario) this.dao.get();
+            usuario.setNome(nome);
+            usuario.setApelido(apelido);
+            usuario.setCpf(cpf);
+            usuario.setData_nasc(data_nasc);
+            usuario.setTelefone(telefone);
+            usuario.setEmail(email);
+            usuario.setSenha(senha);
+
+            boolean valido = ServiceUsuario.validaUsuario(usuario);
+
             if (!this.dao.get().equals(usuario)) {
-                this.dao.set(usuario);
-                this.dao.update();
+                if (valido) {
+                    this.dao.set(usuario);
+                    this.dao.update();
+                }
+
             }
-        // Insert
+            // Insert
         } else {
-            Usuario usuario = new Usuario();
             String nome = request.getParameter("nome");
-            if (nome != null) {
-              usuario.setNome(nome);
-            }
             String apelido = request.getParameter("apelido");
-            if (apelido != null) {
-              usuario.setApelido(apelido);
-            }
             String cpf = request.getParameter("cpf");
-            if (cpf != null) {
-              usuario.setCpf(cpf);
-            }
             String data_nasc = request.getParameter("data_nasc");
-            if (data_nasc != null) {
-              usuario.setData_nasc(data_nasc);
-            }
             String telefone = request.getParameter("telefone");
-            if (telefone != null) {
-              usuario.setTelefone(telefone);
-            }
             String email = request.getParameter("email");
-            if (email != null) {
-              usuario.setEmail(email);
-            }
             String senha = request.getParameter("senha");
-            if (senha != null) {
-              usuario.setSenha(senha);
+
+            Usuario usuario = new Usuario(nome, apelido, cpf, data_nasc, telefone, email, senha);
+
+            boolean valido = ServiceUsuario.validaUsuario(usuario);
+
+            if (valido) {
+                this.dao.set(usuario);
+                this.dao.insert();
             }
-            this.dao.set(usuario);
-            this.dao.insert();
+
         }
         response.setStatus(HttpServletResponse.SC_OK);
         try (PrintWriter out = response.getWriter()) {

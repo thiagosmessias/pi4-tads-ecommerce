@@ -5,10 +5,8 @@ import com.gruposet.ecommerce.models.Endereco;
 public abstract class ServiceEndereco {
 
     public static boolean validaEndereco(Endereco end) {
-        return validaNumero(end.getNumero())
-                || validaPalavra(end.getRua())
-                || validaPalavra(end.getEstado())
-                || validaPalavra(end.getEstado())
+        return validaNumero(end.getNumero()) || validaPalavra(end.getRua())
+                || validaPalavra(end.getEstado()) || validaPalavra(end.getEstado())
                 || validaPalavra(end.getCep());
     }
 

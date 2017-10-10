@@ -6,7 +6,8 @@ public class Endereco {
     private String rua, estado, cidade, cep;
     private boolean padrao, ativo;
 
-    public Endereco() {}
+    public Endereco() {
+    }
 
     public Endereco(int id) {
         this.id = id;

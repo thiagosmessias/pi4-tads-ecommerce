@@ -3,7 +3,7 @@ package com.gruposet.ecommerce.models;
 public class Usuario {
 
     private int id;
-    private String nome, apelido, cpf, data_nasc, 
+    private String nome, apelido, cpf, data_nasc,
             telefone, email, senha, perfil;
     private boolean ativo;
 
@@ -11,9 +11,7 @@ public class Usuario {
         this.id = id;
     }
 
-    public Usuario(String nome, String apelido, String cpf, 
-            String data_nasc, String telefone, String email, 
-            String senha, boolean ativo) {
+    public Usuario(String nome, String apelido, String cpf, String data_nasc, String telefone, String email, String senha) {
         this.nome = nome;
         this.apelido = apelido;
         this.cpf = cpf;
@@ -22,10 +20,10 @@ public class Usuario {
         this.email = email;
         this.senha = senha;
         this.perfil = "cliente";
-        this.ativo = ativo;
+        this.ativo = true;
     }
 
-    public Usuario(int id, String nome, String apelido, String cpf, String data_nasc, String telefone, String email, boolean ativo) {
+    public Usuario(int id, String nome, String apelido, String cpf, String data_nasc, String telefone, String email) {
         this.id = id;
         this.nome = nome;
         this.apelido = apelido;
@@ -33,14 +31,10 @@ public class Usuario {
         this.data_nasc = data_nasc;
         this.telefone = telefone;
         this.email = email;
-        this.ativo = ativo;
     }
 
     public Usuario() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
 
     public int getId() {
         return id;

@@ -12,17 +12,31 @@ package com.gruposet.ecommerce.models;
 public class Produto {
 
     private int id, estoque;
-    private String modelo, marca, descricao;
+    private String modelo, marca, descricao, tamanho;
     private double preco;
     private boolean ativo;
 
-    public Produto(int estoque, String modelo, String marca, String descricao, double preco, boolean ativo) {
+    public Produto(int estoque, String modelo, String marca, String descricao, String tamanho, double preco) {
         this.estoque = estoque;
         this.modelo = modelo;
         this.marca = marca;
         this.descricao = descricao;
+        this.tamanho = tamanho;
         this.preco = preco;
-        this.ativo = ativo;
+        this.ativo = true;
+    }
+
+    public Produto(int id, int estoque, String modelo, String marca, String descricao, String tamanho, double preco) {
+        this.id = id;
+        this.estoque = estoque;
+        this.modelo = modelo;
+        this.marca = marca;
+        this.descricao = descricao;
+        this.tamanho = tamanho;
+        this.preco = preco;
+    }
+
+    public Produto() {
     }
 
     public int getId() {
@@ -65,11 +79,19 @@ public class Produto {
         this.descricao = descricao;
     }
 
+    public String getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(String tamanho) {
+        this.tamanho = tamanho;
+    }
+
     public double getPreco() {
         return preco;
     }
 
-    public void setPreco(Double preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -80,5 +102,5 @@ public class Produto {
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
     }
-    
+
 }
