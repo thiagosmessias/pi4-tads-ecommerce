@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.gruposet.ecommerce.daos.InterfaceDao;
+import com.gruposet.ecommerce.services.ServiceEndereco;
 
 public class ServletEndereco extends HttpServlet {
+
     private InterfaceDao dao;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,17 +30,17 @@ public class ServletEndereco extends HttpServlet {
         String res = "";
         Gson gson = new Gson();
         response.setStatus(HttpServletResponse.SC_OK);
-        
+
         if (request.getParameter("user_id") != null) {
             if (request.getParameter("user_id").length() == 0) {
                 System.out.print("Erro");
             }
-            
+
             final String userId = request.getParameter("user_id");
             final int user_id = Integer.parseInt(userId);
             dao.list("user_id=" + userId);
             res = gson.toJson(dao.getList());
-           
+
         } else if (request.getParameter("id") != null) {
             if (request.getParameter("id").length() == 0) {
                 System.out.println("Erro");
@@ -50,60 +52,67 @@ public class ServletEndereco extends HttpServlet {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        
+
         try (PrintWriter out = response.getWriter()) {
             out.print(res);
             out.flush();
         }
-        
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-        if (request.getParameter("delete").length() == 0) {
-            String id = request.getParameter("id");
-            Usuario user = new Usuario(Integer.valueOf(id));
-            Endereco endereco = new Endereco(user);
-            InterfaceDao db = new DaoEndereco(endereco);
-            db.delete();
+        Integer user_id = Integer.valueOf(request.getParameter("user_id"));
+        Integer id = Integer.valueOf(request.getParameter("id"));
+        if (id != null) {
+            this.dao.select("id=" + id);
+        }
 
-        } else if (request.getParameter("id").length() == 0) {
-            String userId = request.getParameter("user_id");
-            Usuario user = new Usuario(Integer.valueOf(userId));
-            Endereco endereco = new Endereco(user);
-            InterfaceDao db = new DaoEndereco(endereco);
+        // Delete
+        if (request.getRequestURI().contains("delete") && user_id != null) {
+            this.dao.delete();
+            response.setStatus(HttpServletResponse.SC_OK);
 
+            // Update
+        } else if (request.getRequestURI().contains("update") && user_id != null) {
+            Endereco endereco = (Endereco) this.dao.get();
+
+            endereco.setUser_id(user_id);
             endereco.setCep(request.getParameter("cep"));
             endereco.setCidade(request.getParameter("cidade"));
             endereco.setEstado(request.getParameter("estado"));
             endereco.setNumero(Integer.valueOf(request.getParameter("numero")));
             endereco.setPadrao("1".equals(request.getParameter("padrao")));
             endereco.setRua(request.getParameter("rua"));
-            db.insert();
 
-        } else if (request.getParameter("user_id").length() == 0) {
-            String id = request.getParameter("id");
-            Endereco endereco = new Endereco(Integer.valueOf(id));
-            InterfaceDao db = new DaoEndereco(endereco);
+            if (this.dao.get().equals(endereco)) {
+                if (ServiceEndereco.isEnderecoValido(endereco)) {
+                    this.dao.set(endereco);
+                    this.dao.update();
+                }
+            }
 
-            endereco.setCep(request.getParameter("cep"));
-            endereco.setCidade(request.getParameter("cidade"));
-            endereco.setEstado(request.getParameter("estado"));
-            endereco.setNumero(Integer.valueOf(request.getParameter("numero")));
-            endereco.setPadrao("1".equals(request.getParameter("padrao")));
-            endereco.setAtivo("1".equals(request.getParameter("ativo")));
-            endereco.setRua(request.getParameter("rua"));
-
-            db.update();
+            // Insert
         } else {
-            Messages.writeError("Can't create or update Endereco");
+            int numero = Integer.valueOf(request.getParameter("numero"));
+            String rua = request.getParameter("rua");
+            String estado = request.getParameter("estado");
+            String cidade = request.getParameter("cidade");
+            String cep = request.getParameter("cep");
+            boolean padrao = "1".equals(request.getParameter("padrao"));
+
+            Endereco endereco = new Endereco(user_id, numero, rua, estado, cidade, cep, padrao);
+
+            if (ServiceEndereco.isEnderecoValido(endereco)) {
+                this.dao.set(endereco);
+                this.dao.insert();
+            }
+        }
+        response.setStatus(HttpServletResponse.SC_OK);
+        try (PrintWriter out = response.getWriter()) {
+            out.print("");
+            out.flush();
         }
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }
-
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.daos;
 
 import com.gruposet.ecommerce.models.Produto;
@@ -13,23 +8,14 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Rafael
- */
 public class DaoProduto implements InterfaceDao {
 
     private final Database database;
     private Produto produto;
     private ArrayList<Produto>produtos;
 
-    public DaoProduto(Produto pro) {
-        database = new Database();
-        this.produto = pro;
-    }
-    
     public DaoProduto() {
-        database = new Database();
+        this.database = new Database();
     }
     
     @Override
@@ -103,7 +89,6 @@ public class DaoProduto implements InterfaceDao {
     
     @Override
     public void list(String condition) {
-        
         String query = "SELECT * FROM produtos";
         if (condition.length() == 0) {
             query += " WHERE " + condition;

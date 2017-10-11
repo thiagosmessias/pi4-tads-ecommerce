@@ -9,15 +9,7 @@ public class Endereco {
     public Endereco() {
     }
 
-    public Endereco(int id) {
-        this.id = id;
-    }
-
-    public Endereco(Usuario usuario) {
-        this.user_id = usuario.getId();
-    }
-
-    public Endereco(int user_id, int numero, String rua, String estado, String cidade, String cep, boolean padrao, boolean ativo) {
+    public Endereco(int user_id, int numero, String rua, String estado, String cidade, String cep, boolean padrao) {
         this.user_id = user_id;
         this.numero = numero;
         this.rua = rua;
@@ -25,7 +17,7 @@ public class Endereco {
         this.cidade = cidade;
         this.cep = cep;
         this.padrao = padrao;
-        this.ativo = ativo;
+        this.ativo = true;
     }
 
     public int getId() {

@@ -15,12 +15,7 @@ public class DaoUsuario implements InterfaceDao {
     private ArrayList<Usuario> users;
 
     public DaoUsuario() {
-        database = new Database();
-    }
-
-    public DaoUsuario(Usuario user) {
-        database = new Database();
-        this.user = user;
+        this.database = new Database();
     }
 
     @Override
@@ -100,7 +95,6 @@ public class DaoUsuario implements InterfaceDao {
 
     @Override
     public void list(String condition) {
-        Database db = new Database();
         String query = "SELECT * FROM usuarios";
         if (condition.length() != 0) {
             query += " WHERE " + condition;
@@ -110,7 +104,7 @@ public class DaoUsuario implements InterfaceDao {
         this.users = new ArrayList<>();
 
         try {
-            stt = db.getConnection().prepareCall(query);
+            stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
                 users.add(new Usuario(
@@ -142,7 +136,7 @@ public class DaoUsuario implements InterfaceDao {
         this.user = (Usuario) obj;
     }
 
-    public boolean cpfDuplicado(String cpf) {
+    public boolean isCpfDuplicado(String cpf) {
         String query = "SELECT COUNT(*) FROM usuario WHERE cpf = ? AND ativo = true";
         PreparedStatement stt;
         ResultSet rs;

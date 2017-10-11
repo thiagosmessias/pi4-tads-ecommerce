@@ -14,11 +14,6 @@ public class DaoEndereco implements InterfaceDao {
     private Endereco endereco;
     private ArrayList<Endereco> enderecos;
 
-    public DaoEndereco(Endereco endereco) {
-        this.database = new Database();
-        this.endereco = endereco;
-    }
-
     public DaoEndereco() {
         this.database = new Database();
     }
@@ -45,7 +40,7 @@ public class DaoEndereco implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE enderecos SET user_id=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=? WHERE id=?;";
+        String query = "UPDATE enderecos SET user_id=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=?, ativo=? WHERE id=?;";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -56,7 +51,8 @@ public class DaoEndereco implements InterfaceDao {
             stt.setString(5, endereco.getEstado());
             stt.setInt(6, endereco.getNumero());
             stt.setBoolean(7, endereco.isPadrao());
-            stt.setInt(8, endereco.getId());
+            stt.setBoolean(8, endereco.isAtivo());
+            stt.setInt(9, endereco.getId());
             stt.execute();
         } catch (SQLException ex) {
             Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,7 +96,6 @@ public class DaoEndereco implements InterfaceDao {
     
     @Override
     public void list(String condition) {
-        Database database = new Database();
         enderecos = new ArrayList<>();
         String query = "SELECT * FROM enderecos";
         if (condition.length() == 0) {

@@ -64,25 +64,16 @@ public class ServletProduto extends HttpServlet {
 
             // Update
         } else if (request.getRequestURI().contains("update") && id != null) {
-            String modelo = request.getParameter("modelo");
-            String marca = request.getParameter("marca");
-            String descricao = request.getParameter("descricao");
-            String tamanho = request.getParameter("tamanho");
-            int estoque = Integer.valueOf(request.getParameter("estoque"));
-            double preco = Double.valueOf(request.getParameter("preco"));
-
             Produto pro = (Produto) this.dao.get();
-            pro.setDescricao(descricao);
-            pro.setMarca(marca);
-            pro.setModelo(modelo);
-            pro.setTamanho(tamanho);
-            pro.setEstoque(estoque);
-            pro.setPreco(preco);
+            pro.setDescricao(request.getParameter("descricao"));
+            pro.setMarca(request.getParameter("marca"));
+            pro.setModelo(request.getParameter("modelo"));
+            pro.setTamanho(request.getParameter("tamanho"));
+            pro.setEstoque(Integer.valueOf(request.getParameter("estoque")));
+            pro.setPreco(Double.valueOf(request.getParameter("preco")));
 
-            boolean valido = ServiceProduto.validaProduto(pro);
-
-            if (!this.dao.get().equals(pro)) {
-                if (valido) {
+            if (this.dao.get().equals(pro)) {
+                if (ServiceProduto.isProdutoValido(pro)) {
                     this.dao.set(pro);
                     this.dao.update();
                 }
@@ -99,9 +90,7 @@ public class ServletProduto extends HttpServlet {
 
             Produto pro = new Produto(estoque, modelo, marca, descricao, tamanho, preco);
 
-            boolean valido = ServiceProduto.validaProduto(pro);
-
-            if (valido) {
+            if (ServiceProduto.isProdutoValido(pro)) {
                 this.dao.set(pro);
                 this.dao.insert();
             }

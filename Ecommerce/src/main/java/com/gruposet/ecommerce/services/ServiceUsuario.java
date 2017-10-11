@@ -6,24 +6,24 @@ import java.util.InputMismatchException;
 
 public abstract class ServiceUsuario {
 
-    public static boolean validaUsuario(Usuario usuario) {
-        return validaPalavra(usuario.getNome()) || validaPalavra(usuario.getApelido())
-                || validaPalavra(usuario.getData_nasc()) || validaPalavra(usuario.getTelefone())
-                || validaEmail(usuario.getEmail()) || validaPalavra(usuario.getSenha()) 
-                || validaCpf(usuario.getCpf());
+    public static boolean isUsuarioValido(Usuario usuario) {
+        return isPalavraValido(usuario.getNome()) && isPalavraValido(usuario.getApelido())
+                && isPalavraValido(usuario.getData_nasc()) && isPalavraValido(usuario.getTelefone())
+                && isEmailValido(usuario.getEmail()) && isPalavraValido(usuario.getSenha()) 
+                && isCpfValido(usuario.getCpf());
     }
 
-    private static boolean validaPalavra(String palavra) {
-        return "".equals(palavra);
+    private static boolean isPalavraValido(String palavra) {
+        return !("".equals(palavra));
     }
 
-    private static boolean validaEmail(String email) {
-        return "".equals(email) || !email.contains("@");
+    private static boolean isEmailValido(String email) {
+        return !("".equals(email)) && email.contains("@");
     }
 
-    private static boolean validaCpf(String cpf) {
+    private static boolean isCpfValido(String cpf) {
         DaoUsuario dao = new DaoUsuario();
-        return dao.cpfDuplicado(cpf) && !isCpf(cpf);
+        return !dao.isCpfDuplicado(cpf) && isCpf(cpf);
     }
 
     private static boolean isCpf(String cpf) {

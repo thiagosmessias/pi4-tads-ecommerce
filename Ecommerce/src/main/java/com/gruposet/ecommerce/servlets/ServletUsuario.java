@@ -59,32 +59,23 @@ public class ServletUsuario extends HttpServlet {
 
             // Update
         } else if (request.getRequestURI().contains("update") && id != null) {
-            String nome = request.getParameter("nome");
-            String apelido = request.getParameter("apelido");
-            String cpf = request.getParameter("cpf");
-            String data_nasc = request.getParameter("data_nasc");
-            String telefone = request.getParameter("telefone");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-
             Usuario usuario = (Usuario) this.dao.get();
-            usuario.setNome(nome);
-            usuario.setApelido(apelido);
-            usuario.setCpf(cpf);
-            usuario.setData_nasc(data_nasc);
-            usuario.setTelefone(telefone);
-            usuario.setEmail(email);
-            usuario.setSenha(senha);
+            usuario.setNome(request.getParameter("nome"));
+            usuario.setApelido(request.getParameter("apelido"));
+            usuario.setCpf(request.getParameter("cpf"));
+            usuario.setData_nasc(request.getParameter("data_nasc"));
+            usuario.setTelefone(request.getParameter("telefone"));
+            usuario.setEmail(request.getParameter("email"));
+            usuario.setSenha(request.getParameter("senha"));
 
-            boolean valido = ServiceUsuario.validaUsuario(usuario);
-
-            if (!this.dao.get().equals(usuario)) {
-                if (valido) {
+            if (this.dao.get().equals(usuario)) {
+                if (ServiceUsuario.isUsuarioValido(usuario)) {
                     this.dao.set(usuario);
                     this.dao.update();
                 }
 
             }
+            
             // Insert
         } else {
             String nome = request.getParameter("nome");
@@ -97,9 +88,7 @@ public class ServletUsuario extends HttpServlet {
 
             Usuario usuario = new Usuario(nome, apelido, cpf, data_nasc, telefone, email, senha);
 
-            boolean valido = ServiceUsuario.validaUsuario(usuario);
-
-            if (valido) {
+            if (ServiceUsuario.isUsuarioValido(usuario)) {
                 this.dao.set(usuario);
                 this.dao.insert();
             }
