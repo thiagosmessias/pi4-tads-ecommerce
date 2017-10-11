@@ -71,6 +71,7 @@ public class DaoProduto implements InterfaceDao {
                 produto.setMarca(rs.getString("marca"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPreco(rs.getDouble("preco"));
+                produto.setTamanho(rs.getString("tamanho"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -100,6 +101,7 @@ public class DaoProduto implements InterfaceDao {
                 produto.setModelo(rs.getString("modelo"));
                 produto.setMarca(rs.getString("marca"));
                 produto.setPreco(rs.getDouble("preco"));
+                produto.setTamanho(rs.getString("tamanho"));
                 produto.setId(rs.getInt("id"));
                 produtos.add(produto);
             }
