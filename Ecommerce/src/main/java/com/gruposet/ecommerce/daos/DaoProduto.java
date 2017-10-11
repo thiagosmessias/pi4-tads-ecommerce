@@ -12,12 +12,8 @@ public class DaoProduto implements InterfaceDao {
 
     private final Database database;
     private Produto produto;
-    private ArrayList<Produto>produtos;
+    private ArrayList<Produto> produtos;
 
-    public DaoProduto() {
-        this.database = new Database();
-    }
-    
     @Override
     public void insert() {
         String query = "INSERT INTO produtos (estoque, modelo, marca, descricao, tamanho, preco) VALUE (?,?,?,?,?,?)";
@@ -64,7 +60,7 @@ public class DaoProduto implements InterfaceDao {
             query += " WHERE " + condition;
         }
         query += ";";
-        
+
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
@@ -86,7 +82,7 @@ public class DaoProduto implements InterfaceDao {
         produto.setAtivo(false);
         this.update();
     }
-    
+
     @Override
     public void list(String condition) {
         String query = "SELECT * FROM produtos";
@@ -94,12 +90,12 @@ public class DaoProduto implements InterfaceDao {
             query += " WHERE " + condition;
         }
         query += "query";
-        
+
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
-            while(rs.next()){
+            while (rs.next()) {
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setModelo(rs.getString("modelo"));
                 produto.setMarca(rs.getString("marca"));
@@ -125,5 +121,9 @@ public class DaoProduto implements InterfaceDao {
     @Override
     public void set(Object obj) {
         this.produto = (Produto) obj;
+    }
+
+    public DaoProduto() {
+        this.database = new Database();
     }
 }

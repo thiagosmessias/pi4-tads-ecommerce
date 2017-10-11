@@ -14,10 +14,6 @@ public class DaoEndereco implements InterfaceDao {
     private Endereco endereco;
     private ArrayList<Endereco> enderecos;
 
-    public DaoEndereco() {
-        this.database = new Database();
-    }
-    
     @Override
     public void insert() {
         String query = "INSERT INTO enderecos (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
@@ -93,7 +89,7 @@ public class DaoEndereco implements InterfaceDao {
         endereco.setPadrao(false);
         this.update();
     }
-    
+
     @Override
     public void list(String condition) {
         enderecos = new ArrayList<>();
@@ -128,14 +124,18 @@ public class DaoEndereco implements InterfaceDao {
     public ArrayList getList() {
         return this.enderecos;
     }
-    
+
     @Override
     public Object get() {
         return this.endereco;
     }
-    
+
     @Override
     public void set(Object obj) {
         this.endereco = (Endereco) obj;
+    }
+
+    public DaoEndereco() {
+        this.database = new Database();
     }
 }

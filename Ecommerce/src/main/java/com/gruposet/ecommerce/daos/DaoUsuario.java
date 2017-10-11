@@ -14,17 +14,12 @@ public class DaoUsuario implements InterfaceDao {
     private Usuario user;
     private ArrayList<Usuario> users;
 
-    public DaoUsuario() {
-        this.database = new Database();
-    }
-
     @Override
     public void insert() {
         String query = "INSERT INTO usuarios (nome, apelido, cpf, data_nasc, celular, email, senha, acesso) VALUE (?,?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
-
             stt.setString(1, user.getNome());
             stt.setString(2, user.getApelido());
             stt.setString(3, user.getCpf());
@@ -134,6 +129,10 @@ public class DaoUsuario implements InterfaceDao {
     @Override
     public void set(Object obj) {
         this.user = (Usuario) obj;
+    }
+    
+    public DaoUsuario() {
+        this.database = new Database();
     }
 
     public boolean isCpfDuplicado(String cpf) {
