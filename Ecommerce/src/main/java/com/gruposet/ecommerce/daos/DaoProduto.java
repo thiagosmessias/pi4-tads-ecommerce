@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DaoProduto implements InterfaceDao {
-
+//asdasdasd
     private final Database database;
     private Produto produto;
     private ArrayList<Produto> produtos;
