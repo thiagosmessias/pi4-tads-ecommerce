@@ -6,7 +6,7 @@ public abstract class ServiceEndereco {
 
     public static boolean isEnderecoValido(Endereco end) {
         return isNumeroValido(end.getNumero()) && isPalavraValido(end.getRua())
-                && isPalavraValido(end.getEstado()) && isPalavraValido(end.getEstado())
+                && isPalavraValido(end.getCidade()) && isPalavraValido(end.getEstado())
                 && isPalavraValido(end.getCep());
     }
 

@@ -114,7 +114,6 @@ public class DaoEndereco implements InterfaceDao {
                 endereco.setPadrao(rs.getBoolean("padrao"));
                 enderecos.add(endereco);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(DaoEndereco.class.getName()).log(Level.SEVERE, null, ex);
         }

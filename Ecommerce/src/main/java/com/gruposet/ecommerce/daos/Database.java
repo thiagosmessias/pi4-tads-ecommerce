@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 public class Database {
 
     private Connection connection = null;
-    private String databaseUrl = "jdbc:mysql://localhost:3306/ecommerce";
-    private String user = "root";
-    private String psw = "root";
+    private final String databaseUrl = "jdbc:mysql://localhost:3306/ecommerce";
+    private final String user = "root";
+    private final String psw = "root";
     
     private Connection createConnection() {
         Properties properties = new Properties();

@@ -41,12 +41,10 @@ public class ServletProduto extends HttpServlet {
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-
         try (PrintWriter out = response.getWriter()) {
             out.print(res);
             out.flush();
         }
-
     }
 
     @Override

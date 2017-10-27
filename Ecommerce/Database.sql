@@ -1,13 +1,3 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- * Author:  thiagomessias
- * Created: Aug 27, 2017
- */
-
 CREATE TABLE IF NOT EXISTS `usuarios` (
     id              INT NOT NULL AUTO_INCREMENT,
     nome            varchar(255),

@@ -7,10 +7,6 @@ public class Usuario {
             telefone, email, senha, perfil;
     private boolean ativo;
 
-    public Usuario(int id) {
-        this.id = id;
-    }
-
     public Usuario(String nome, String apelido, String cpf, String data_nasc, String telefone, String email, String senha) {
         this.nome = nome;
         this.apelido = apelido;
@@ -21,16 +17,6 @@ public class Usuario {
         this.senha = senha;
         this.perfil = "cliente";
         this.ativo = true;
-    }
-
-    public Usuario(int id, String nome, String apelido, String cpf, String data_nasc, String telefone, String email) {
-        this.id = id;
-        this.nome = nome;
-        this.apelido = apelido;
-        this.cpf = cpf;
-        this.data_nasc = data_nasc;
-        this.telefone = telefone;
-        this.email = email;
     }
 
     public Usuario() {
