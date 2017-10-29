@@ -37,3 +37,7 @@ CREATE TABLE IF NOT EXISTS `enderecos` (
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES usuarios(id)
 );
+
+CREATE TABLE IF NOT EXISTS `vendas` (
+    
+);

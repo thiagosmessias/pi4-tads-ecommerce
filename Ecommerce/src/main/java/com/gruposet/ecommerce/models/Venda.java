@@ -8,6 +8,7 @@ public class Venda {
     private Date dataCompra;
     private String formaPagamento;
     private Double valorTotal;
+    private boolean ativo;
 
     public Venda(int idProduto, int idCliente, int qtdProduto, Date dataCompra, String formaPagamento) {
         this.idProduto = idProduto;
@@ -15,6 +16,7 @@ public class Venda {
         this.qtdProduto = qtdProduto;
         this.dataCompra = dataCompra;
         this.formaPagamento = formaPagamento;
+        this.ativo = true;
     }
 
     public int getIdVenda() {
@@ -73,4 +75,11 @@ public class Venda {
         this.valorTotal = valorTotal;
     }
     
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }
