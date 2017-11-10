@@ -1,54 +1,31 @@
 package com.gruposet.ecommerce.services;
 
 import com.gruposet.ecommerce.models.Usuario;
+import com.gruposet.ecommerce.daos.DaoUsuario;
 import java.util.InputMismatchException;
 
 public abstract class ServiceUsuario {
 
-    public static boolean validateUser(Usuario user) {
-        return validateName(user.getNome())
-                || validateNickname(user.getApelido()) 
-                || validateCPF(user.getCpf())
-                || validateBirth(user.getData_nasc())
-                || validatePhone(user.getTelefone())
-                || validateEmail(user.getEmail())
-                || validatePassword(user.getSenha());
+    public static boolean isUsuarioValido(Usuario usuario) {
+        return isPalavraValido(usuario.getNome()) && isPalavraValido(usuario.getApelido())
+                && isPalavraValido(usuario.getData_nasc()) && isPalavraValido(usuario.getTelefone())
+                && isEmailValido(usuario.getEmail()) && isPalavraValido(usuario.getSenha()) 
+                && isCpfValido(usuario.getCpf());
     }
 
-    private static boolean validateName(String name) {
-        return "".equals(name);
+    private static boolean isPalavraValido(String palavra) {
+        return !("".equals(palavra));
     }
 
-    private static boolean validateNickname(String nickname) {
-        return "".equals(nickname);
+    private static boolean isEmailValido(String email) {
+        return !("".equals(email)) && email.contains("@");
     }
 
-    private static boolean validateBirth(String nascimento) {
-        return "".equals(nascimento);
+    private static boolean isCpfValido(String cpf) {
+        DaoUsuario dao = new DaoUsuario();
+        return !dao.isCpfDuplicado(cpf) && isCpf(cpf);
     }
 
-    private static boolean validatePhone(String phone) {
-        return "".equals(phone);
-    }
-
-    private static boolean validateEmail(String email) {
-        return "".equals(email) || !email.contains("@");
-    }
-
-    private static boolean validatePassword(String password) {
-        return "".equals(password);
-    }
-    
-    private static boolean validateCPF(String cpf){
-        return isCpf(cpf);
-    }
-
-    //Implementar busca e verificação de CPF duplicado
-//    private static boolean isCpfDuplicate(String cpf) {
-//        
-//        return false;
-//    }
-    
     private static boolean isCpf(String cpf) {
         String parte1 = cpf.substring(0, 3);
         String parte2 = cpf.substring(4, 7);
@@ -56,11 +33,9 @@ public abstract class ServiceUsuario {
         String parte4 = cpf.substring(12, 14);
         String CPF = (parte1) + (parte2) + (parte3) + (parte4);
 
-        if (CPF.equals("00000000000") || CPF.equals("11111111111")
-                || CPF.equals("22222222222") || CPF.equals("33333333333")
-                || CPF.equals("44444444444") || CPF.equals("55555555555")
-                || CPF.equals("66666666666") || CPF.equals("77777777777")
-                || CPF.equals("88888888888") || CPF.equals("99999999999")
+        if (CPF.equals("00000000000") || CPF.equals("11111111111") || CPF.equals("22222222222") || CPF.equals("33333333333")
+                || CPF.equals("44444444444") || CPF.equals("55555555555") || CPF.equals("66666666666")
+                || CPF.equals("77777777777") || CPF.equals("88888888888") || CPF.equals("99999999999")
                 || (CPF.length() != 11)) {
             return (true);
         }

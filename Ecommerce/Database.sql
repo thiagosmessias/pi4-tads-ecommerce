@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
     email           varchar(255) NOT NULL,
     senha           varchar(255),
     perfil          int DEFAULT 0,
-    ativo           bit,
+    ativo           bit DEFAULT TRUE,
     PRIMARY KEY (id)
 );
 
@@ -27,9 +27,10 @@ CREATE TABLE IF NOT EXISTS `produtos` (
     modelo          varchar(255),
     marca           varchar(255),
     descricao       text,
+    tamanho         text,
     preco           float,
     estoque         int,
-    ativo           bit,
+    ativo           bit DEFAULT TRUE,
     PRIMARY KEY (id)
 );
 
