@@ -105,6 +105,7 @@ angular.module('AppMain')
     },
 
     makeCall: function(route, method, data) {
+      var token = '';
       switch (method) {
         case 'post':
           tmp = this.post;
