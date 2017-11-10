@@ -123,17 +123,7 @@ angular.module('AppMain')
           console.error("Unrecognized method %s", method);
       }
 
-      tmp(route, data, token).then(function(data) {
-        defer.resolve(data);
-      }, function(err) {
-        if (err.status === 401) {
-          $rootScope.logout();
-        } else if (err.status === 500) {
-          alert("Unexpected error in server");
-          $rootScope.logout();
-        }
-        defer.reject(err);
-      });
+      return tmp(route, data, token);
     }
   };
 });
