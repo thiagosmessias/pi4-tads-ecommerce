@@ -99,9 +99,7 @@ angular.module('AppMain')
      * @return {function}        Return the function specific to method selected
      */
     call: function(route, method, data) {
-      if (typeof $rootScope.firebase !== 'undefined') {
-        return this.makeCall(route, method, data);
-      }
+      return this.makeCall(route, method, data);
     },
 
     makeCall: function(route, method, data) {
