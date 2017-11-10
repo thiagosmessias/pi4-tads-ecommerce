@@ -99,11 +99,8 @@ angular.module('AppMain')
      * @return {function}        Return the function specific to method selected
      */
     call: function(route, method, data) {
-      return this.makeCall(route, method, data);
-    },
-
-    makeCall: function(route, method, data) {
       var token = '';
+      var tmp;
       switch (method) {
         case 'post':
           tmp = this.post;
