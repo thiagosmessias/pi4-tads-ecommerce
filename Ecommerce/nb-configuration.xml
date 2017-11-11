@@ -817,6 +817,10 @@ Any value defined here will override the pom.xml file value but is only applicab
             <file localPath="src/main/webapp/libs/jquery/jquery.slim.min.js" path="jquery.slim.min.js"/>
             <file localPath="src/main/webapp/libs/jquery/jquery.slim.min.map" path="jquery.slim.min.map"/>
         </library>
+        <library name="ngStorage" version="0.3.11">
+            <file localPath="src/main/webapp/libs/ngStorage/ngStorage.js" path="ngStorage.js"/>
+            <file localPath="src/main/webapp/libs/ngStorage/ngStorage.min.js" path="ngStorage.min.js"/>
+        </library>
         <library name="twitter-bootstrap" version="3.3.7">
             <file localPath="src/main/webapp/libs/twitter-bootstrap/css/bootstrap-theme.css" path="css/bootstrap-theme.css"/>
             <file localPath="src/main/webapp/libs/twitter-bootstrap/css/bootstrap-theme.css.map" path="css/bootstrap-theme.css.map"/>
