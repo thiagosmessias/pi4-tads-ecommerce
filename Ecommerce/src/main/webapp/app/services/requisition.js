@@ -6,7 +6,7 @@ angular.module('AppMain')
   /**
    * The service to centralize and simplify the API calls.
    */
-.factory('api', function($http, host, $rootScope, $location, storage) {
+.factory('api', function($http, $rootScope, $location) {
   var apiAddress = location.href.substr(0, location.href.indexOf('/', location.origin.length)) + '/';
 
   return {
