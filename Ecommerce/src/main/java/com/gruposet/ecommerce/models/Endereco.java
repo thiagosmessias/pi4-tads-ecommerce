@@ -6,9 +6,6 @@ public class Endereco {
     private String rua, estado, cidade, cep;
     private boolean padrao, ativo;
 
-    public Endereco() {
-    }
-
     public Endereco(int user_id, int numero, String rua, String estado, String cidade, String cep, boolean padrao) {
         this.user_id = user_id;
         this.numero = numero;
@@ -18,6 +15,9 @@ public class Endereco {
         this.cep = cep;
         this.padrao = padrao;
         this.ativo = true;
+    }
+    
+    public Endereco() {
     }
 
     public int getId() {

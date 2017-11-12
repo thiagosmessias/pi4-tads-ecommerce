@@ -9,7 +9,7 @@ public abstract class ServiceUsuario {
     public static boolean isUsuarioValido(Usuario usuario) {
         return isPalavraValido(usuario.getNome()) && isPalavraValido(usuario.getApelido())
                 && isPalavraValido(usuario.getData_nasc()) && isPalavraValido(usuario.getTelefone())
-                && isEmailValido(usuario.getEmail()) && isPalavraValido(usuario.getSenha()) 
+                && isEmailValido(usuario.getEmail()) && isPalavraValido(usuario.getSenha())
                 && isCpfValido(usuario.getCpf());
     }
 

@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruposet.ecommerce.models;
 
-/**
- *
- * @author Rafael
- */
 public class Produto {
 
     private int id, estoque;
@@ -24,16 +15,6 @@ public class Produto {
         this.tamanho = tamanho;
         this.preco = preco;
         this.ativo = true;
-    }
-
-    public Produto(int id, int estoque, String modelo, String marca, String descricao, String tamanho, double preco) {
-        this.id = id;
-        this.estoque = estoque;
-        this.modelo = modelo;
-        this.marca = marca;
-        this.descricao = descricao;
-        this.tamanho = tamanho;
-        this.preco = preco;
     }
 
     public Produto() {

@@ -2,17 +2,15 @@ package com.gruposet.ecommerce.servlets;
 
 import com.google.gson.Gson;
 import com.gruposet.ecommerce.daos.DaoEndereco;
-import com.gruposet.ecommerce.helpers.Messages;
+import com.gruposet.ecommerce.daos.InterfaceDao;
 import com.gruposet.ecommerce.models.Endereco;
-import com.gruposet.ecommerce.models.Usuario;
+import com.gruposet.ecommerce.services.ServiceEndereco;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.gruposet.ecommerce.daos.InterfaceDao;
-import com.gruposet.ecommerce.services.ServiceEndereco;
 
 public class ServletEndereco extends HttpServlet {
 
@@ -38,7 +36,7 @@ public class ServletEndereco extends HttpServlet {
 
             final String userId = request.getParameter("user_id");
             final int user_id = Integer.parseInt(userId);
-            dao.list("user_id=" + userId);
+            dao.list("user_id=" + user_id);
             res = gson.toJson(dao.getList());
 
         } else if (request.getParameter("id") != null) {
@@ -47,7 +45,7 @@ public class ServletEndereco extends HttpServlet {
             }
             final String end_id = request.getParameter("id");
             final int id = Integer.parseInt(end_id);
-            dao.select("id=" + end_id);
+            dao.select("id=" + id);
             res = gson.toJson(dao.get());
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

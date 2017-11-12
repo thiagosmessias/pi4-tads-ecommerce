@@ -102,14 +102,14 @@ public class DaoUsuario implements InterfaceDao {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
-                users.add(new Usuario(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getString("apelido"),
-                        rs.getString("cpf"),
-                        rs.getString("data_nasc"),
-                        rs.getString("telefone"),
-                        rs.getString("email")));
+                user.setNome(rs.getString("nome"));
+                user.setApelido(rs.getString("apelido"));
+                user.setCpf(rs.getString("cpf"));
+                user.setData_nasc(rs.getString("data_nasc"));
+                user.setTelefone(rs.getString("telefone"));
+                user.setEmail(rs.getString("email"));
+                user.setId(rs.getInt("id"));
+                users.add(user);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,7 +130,7 @@ public class DaoUsuario implements InterfaceDao {
     public void set(Object obj) {
         this.user = (Usuario) obj;
     }
-    
+
     public DaoUsuario() {
         this.database = new Database();
     }
