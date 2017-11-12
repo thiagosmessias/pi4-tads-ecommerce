@@ -7,7 +7,6 @@
 angular.module('AppMain', ['ngRoute'])
 
 // Default controller to initial page
-.controller("IndexController", function($scope, $rootScope) {
-  $rootScope.apiUrl = "http://localhost:8080/Ecommerce/";
-  $scope.hi = "Hello World";
+.controller("IndexController", function($scope, $rootScope, api) {
+  
 });

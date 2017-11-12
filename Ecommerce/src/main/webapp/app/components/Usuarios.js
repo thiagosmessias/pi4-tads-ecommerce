@@ -1,5 +1,6 @@
 angular.module('AppMain')
-.controller('UserController', function($rootScope, $http, utils) {
+.controller('UserController', function($rootScope, api, utils) {
+
   this.post = function(data) {
     $http.post($rootScope.apiUrl + '/ServletUsuario', data)
     .done(function(response) {
@@ -18,4 +19,5 @@ angular.module('AppMain')
       alert('false');
     });
   }
+
 });
