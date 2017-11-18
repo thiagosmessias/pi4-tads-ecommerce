@@ -1,11 +1,22 @@
 angular.module('AppMain')
-.factory('pedido', function($rootScope, utils) {
-  var userId = utils.getUser() ? utils.getUser().id : '';
+.factory('pedido', function($rootScope, $localStorage) {
+  var userId = '';
+  if ('user' in $rootScope) {
+    userId = $rootScope.user.id ? $rootScope.user.id : '';
+  }
 
-  $rootScope.shoppingList = {
-    products: [],
-    id: userId + '-' + Math.random()
-  };
+  if ('shoppingList' in $localStorage) {
+    $rootScope.shoppingList = $localStorage.shoppingList;
+  } else {
+    $rootScope.shoppingList = {
+      products: [],
+      id: userId + '-' + Math.random()
+    };
+  }
+
+  $rootScope.$watch('shoppingList', function() {
+    console.log($rootScope.shoppingList);
+  });
 
   return {
     list: function() {
@@ -19,11 +30,12 @@ angular.module('AppMain')
     add: function(product) {
       if ('id' in product) {
         product.quantidade = 1;
-        $rootScope.shoppingList.product.push(product);
+        $rootScope.shoppingList.products.push(product);
       } else {
         alert("Não foi possível adicionar esse produto, houve um erro!");
         console.log("O produto adicionado não tinha ID");
       }
+      $localStorage.$default({shoppingList: $rootScope.shoppingList});
     },
 
     update: function(index, newProductValues) {
@@ -39,6 +51,7 @@ angular.module('AppMain')
       } else {
         alert("Não foi possível atualizar este produto");
       }
+      $localStorage.$default({shoppingList: $rootScope.shoppingList});
     },
 
     delete: function(index) {
@@ -48,6 +61,7 @@ angular.module('AppMain')
           alert("Um erro inesperado ao deletar esse produto!");
         }
       }
+      $localStorage.$default({shoppingList: $rootScope.shoppingList});
     }
   };
 });

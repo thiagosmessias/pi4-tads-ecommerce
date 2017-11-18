@@ -1,2 +1,43 @@
 <div ng-controller="carrinhoController as ctrl">
+  <nav-menu></nav-menu>
+  <div class="row">
+    <div class="col-md-3">
+      <side-menu></side-menu>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Carrinho de compras</div>
+
+        <!-- Table -->
+        <table class="table">
+          <th>
+            <td>Item</td>
+            <td>Descrição</td>
+            <td>Quantidade</td>
+            <td>Remover</td>
+          </th>
+          <tr ng-repeat="produto in products track by $index">
+            <td>
+              {{ produto.nome }}
+            </td>
+            <td>
+              {{ produto.descricao }}
+            </td>
+            <td>
+              <div class="input-group">
+                <div class="input-group-btn">
+                  <!-- Buttons -->
+                </div>
+                <input type="number" class="form-control" aria-label="quantidade">
+              </div>
+            </td>
+            <td>
+              <a href="" ng-click="delete($index)"><span class="glyphicon glyphicon-remove"></span></a>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
