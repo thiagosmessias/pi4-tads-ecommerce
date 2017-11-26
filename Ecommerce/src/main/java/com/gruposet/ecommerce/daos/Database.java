@@ -12,7 +12,7 @@ public class Database {
     private Connection connection = null;
     private final String databaseUrl = "jdbc:mysql://localhost:3306/ecommerce";
     private final String user = "root";
-    private final String psw = "root";
+    private final String psw = "";
     
     private Connection createConnection() {
         Properties properties = new Properties();
