@@ -46,5 +46,4 @@ angular.module('AppMain', ['ngRoute', 'ngStorage'])
       valor: 10.50
     }
   ];
-
 });

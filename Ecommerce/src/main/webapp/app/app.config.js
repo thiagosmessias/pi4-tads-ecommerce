@@ -12,8 +12,8 @@ angular.module('AppMain')
         .when('/index',{
             templateUrl: "app/templates/index.html"
         })
-        .when('/usuarios', {
-            templateUrl: "app/templates/usuarios.html"
+        .when('/pedidos', {
+            templateUrl: "app/templates/Pedidos.html"
         })
         .when('/usuario/:id', {
             templateUrl: "app/templates/usuario.detail.html"
