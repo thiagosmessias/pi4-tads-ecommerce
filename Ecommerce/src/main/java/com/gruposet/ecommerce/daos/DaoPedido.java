@@ -62,7 +62,6 @@ public class DaoPedido implements InterfaceDao {
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
-            stt.setInt(1, pedido.getId());
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
                 this.pedido = new Pedido();

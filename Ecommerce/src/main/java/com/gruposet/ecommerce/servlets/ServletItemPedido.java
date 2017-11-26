@@ -55,8 +55,8 @@ public class ServletItemPedido extends HttpServlet {
             out.flush();
         }
     }
-    public void mountPedidoList(HttpServletRequest request, HttpServletResponse response, Pedido pedido, JSONObject json) throws ServletException, IOException {
-
+    public static void mountPedidoList(HttpServletRequest request, HttpServletResponse response, Pedido pedido, JSONObject json) throws ServletException, IOException {
+        InterfaceDao d = new DaoItemPedido();
         if (pedido != null && json.has("items")) {
             JSONArray jarray = json.getJSONArray("items");
             for (Object obj : jarray) {
@@ -72,8 +72,11 @@ public class ServletItemPedido extends HttpServlet {
                     item.setProduto_id(jobj.getInt("id"));
                 }
                 item.setPedido_id(pedido.getId());
-                dao.set((ItemPedido)item);
-                dao.insert();
+                if (item != null) {
+                    System.out.println(d.getClass());
+                    d.set(item);
+                    d.insert();
+                }
             }
             response.setStatus(HttpServletResponse.SC_CREATED);
             
@@ -82,7 +85,7 @@ public class ServletItemPedido extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         try (PrintWriter out = response.getWriter()) {
-            out.print(res);
+            out.print("");
             out.flush();
         }
     }

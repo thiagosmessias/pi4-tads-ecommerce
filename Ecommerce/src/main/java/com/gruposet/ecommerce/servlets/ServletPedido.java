@@ -112,8 +112,7 @@ public class ServletPedido extends HttpServlet {
                 this.dao.select("id=LAST_INSERT_ID()");
              
                 if (json.has("items")) {
-                    ServletItemPedido sip = new ServletItemPedido();
-                    sip.mountPedidoList(request, response, (Pedido)this.dao.get(), json);
+                    ServletItemPedido.mountPedidoList(request, response, (Pedido)this.dao.get(), json);
                 }
             }
         }
