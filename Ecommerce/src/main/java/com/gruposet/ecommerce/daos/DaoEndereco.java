@@ -16,7 +16,7 @@ public class DaoEndereco implements InterfaceDao {
 
     @Override
     public void insert() {
-        String query = "INSERT INTO enderecos (user_id, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
+        String query = "INSERT INTO enderecos (id_usuario, rua, cep, cidade, estado, numero, padrao) VALUE (?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -36,7 +36,7 @@ public class DaoEndereco implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE enderecos SET user_id=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=?, ativo=? WHERE id=?;";
+        String query = "UPDATE enderecos SET id_usuario=?, rua=?, cep=?, cidade=?, estado=?, numero=?, padrao=?, ativo=? WHERE id=?;";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -61,6 +61,7 @@ public class DaoEndereco implements InterfaceDao {
         if (condition != null && condition.length() > 0) {
             query += " WHERE " + condition;
         }
+//        System.out.println(query);
         query += ";";
         PreparedStatement stt;
         try {
@@ -68,7 +69,8 @@ public class DaoEndereco implements InterfaceDao {
             stt.setInt(1, endereco.getId());
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
-                endereco.setUser_id(rs.getInt("user_id"));
+                endereco = new Endereco();
+                endereco.setUser_id(rs.getInt("usuario_id"));
                 endereco.setNumero(rs.getInt("numero"));
                 endereco.setRua(rs.getString("rua"));
                 endereco.setCep(rs.getString("cep"));
@@ -92,18 +94,20 @@ public class DaoEndereco implements InterfaceDao {
 
     @Override
     public void list(String condition) {
-        enderecos = new ArrayList<>();
+        enderecos = new ArrayList<Endereco>();
         String query = "SELECT * FROM enderecos";
         if (condition.length() == 0) {
             query += " WHERE ";
         }
         query += ";";
+        System.out.println(query);
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
-                endereco.setUser_id(rs.getInt("user_id"));
+                endereco = new Endereco();
+                endereco.setUser_id(rs.getInt("id_usuario"));
                 endereco.setId(rs.getInt("id"));
                 endereco.setNumero(rs.getInt("numero"));
                 endereco.setRua(rs.getString("rua"));

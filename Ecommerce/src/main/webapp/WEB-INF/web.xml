@@ -25,10 +25,6 @@
         <url-pattern>/ServletUsuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServletEndereco</servlet-name>
-        <url-pattern>/Enderecos</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>Usuarios</servlet-name>
         <url-pattern>/Usuarios</url-pattern>
     </servlet-mapping>
@@ -39,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>ServletPedido</servlet-name>
         <url-pattern>/ServletPedido</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletEndereco</servlet-name>
+        <url-pattern>/ServletEndereco</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

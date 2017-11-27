@@ -39,7 +39,8 @@ public class ServletProduto extends HttpServlet {
             dao.select("id=" + id);
             res = gson.toJson(dao.get());
         } else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            dao.list("1=1");
+            res = gson.toJson(dao.getList());
         }
         try (PrintWriter out = response.getWriter()) {
             out.print(res);

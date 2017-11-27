@@ -22,6 +22,7 @@ public class ServletUsuario extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         this.dao = new DaoUsuario();
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 
     @Override
@@ -29,11 +30,11 @@ public class ServletUsuario extends HttpServlet {
         processRequest(request, response);
         String res = "";
         Gson gson = new Gson();
-        response.setStatus(HttpServletResponse.SC_OK);
         final String id = request.getParameter("id");
-        if (id == null || id.length() == 0) {
+        if (id != null || id.length() != 0) {
             dao.select("id=" + id);
-            res = gson.toJson(dao.getList());
+            res = gson.toJson(dao.get());
+            System.out.println(res);
         } else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }

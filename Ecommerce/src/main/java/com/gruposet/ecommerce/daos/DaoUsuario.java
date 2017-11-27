@@ -63,12 +63,13 @@ public class DaoUsuario implements InterfaceDao {
             query += " WHERE " + condition;
         }
         query += ";";
-
+        System.out.println(query);
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
+                user = new Usuario();
                 user.setNome(rs.getString("nome"));
                 user.setApelido(rs.getString("apelido"));
                 user.setCpf(rs.getString("cpf"));
@@ -76,6 +77,7 @@ public class DaoUsuario implements InterfaceDao {
                 user.setTelefone(rs.getString("telefone"));
                 user.setEmail(rs.getString("email"));
                 user.setSenha(rs.getString("senha"));
+                user.setId(rs.getInt("id"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,6 +104,7 @@ public class DaoUsuario implements InterfaceDao {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
+                user = new Usuario();
                 user.setNome(rs.getString("nome"));
                 user.setApelido(rs.getString("apelido"));
                 user.setCpf(rs.getString("cpf"));

@@ -28,17 +28,16 @@ public class ServletEndereco extends HttpServlet {
         String res = "";
         Gson gson = new Gson();
         response.setStatus(HttpServletResponse.SC_OK);
-
-        if (request.getParameter("user_id") != null) {
-            if (request.getParameter("user_id").length() == 0) {
+        final String usuario = request.getParameter("usuario");
+        if ( usuario != null) {
+            if (usuario.length() == 0) {
                 System.out.print("Erro");
             }
 
-            final String userId = request.getParameter("user_id");
-            final int user_id = Integer.parseInt(userId);
-            dao.list("user_id=" + user_id);
+            final int user_id = Integer.parseInt(usuario);
+            dao.list("id_usuario=" +  usuario);
             res = gson.toJson(dao.getList());
-
+            System.out.println(res);
         } else if (request.getParameter("id") != null) {
             if (request.getParameter("id").length() == 0) {
                 System.out.println("Erro");

@@ -90,18 +90,21 @@ public class DaoProduto implements InterfaceDao {
         if (condition.length() == 0) {
             query += " WHERE " + condition;
         }
-        query += "query";
+        query += ";";
 
         PreparedStatement stt;
+        produtos = new ArrayList<Produto>();
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
+                produto = new Produto();
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setModelo(rs.getString("modelo"));
                 produto.setMarca(rs.getString("marca"));
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setTamanho(rs.getString("tamanho"));
+                produto.setEstoque(rs.getInt("estoque"));
                 produto.setId(rs.getInt("id"));
                 produtos.add(produto);
             }
