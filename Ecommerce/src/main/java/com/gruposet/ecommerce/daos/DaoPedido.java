@@ -54,10 +54,14 @@ public class DaoPedido implements InterfaceDao {
 
     @Override
     public void select(String condition) {
-        String query = "SELECT * FROM pedidos";
+        String query = "SELECT "
+                + " id, id_usuario, status_pedido, criado_em, modificado_em,"
+                + " (SELECT SUM(ip.preco) as preco FROM items_pedido ip WHERE p.id=ip.id_pedido) AS total"
+                + " FROM pedidos p";
         if (condition != null && condition.length() > 0) {
             query += " WHERE " + condition;
         }
+        
         query += ";";
         PreparedStatement stt;
         try {
@@ -70,6 +74,7 @@ public class DaoPedido implements InterfaceDao {
                 pedido.setStatus_pedido(rs.getInt("status_pedido"));
                 pedido.setCriado_em(rs.getTimestamp("criado_em"));
                 pedido.setModificado_em(rs.getTimestamp("modificado_em"));
+                pedido.setTotal(rs.getFloat("total"));
             }
 
         } catch (SQLException ex) {
@@ -86,11 +91,15 @@ public class DaoPedido implements InterfaceDao {
     @Override
     public void list(String condition) {
         pedidos = new ArrayList<>();
-        String query = "SELECT * FROM pedidos";
-        if (condition.length() == 0) {
-            query += " WHERE ";
+        String query = "SELECT "
+                + " id, id_usuario, status_pedido, criado_em, modificado_em,"
+                + " (SELECT SUM(preco) FROM items_pedido ip WHERE ip.id_pedido=p.id) AS total"
+                + " FROM pedidos p";
+        if (condition != null && condition.length() != 0) {
+            query += " WHERE " + condition;
         }
         query += ";";
+        System.out.println(query);
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
@@ -102,6 +111,7 @@ public class DaoPedido implements InterfaceDao {
                 pedido.setStatus_pedido(rs.getInt("status_pedido"));
                 pedido.setCriado_em(rs.getTimestamp("criado_em"));
                 pedido.setModificado_em(rs.getTimestamp("modificado_em"));
+                pedido.setTotal(rs.getFloat("total"));
                 pedidos.add(pedido);
             }
         } catch (SQLException ex) {

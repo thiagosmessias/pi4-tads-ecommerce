@@ -51,12 +51,17 @@ public class ServletPedido extends HttpServlet {
             dao.select("id=" + id);
             res = gson.toJson(dao.get());
         } else if (usuario != null) {
+            System.out.println(usuario);
             dao.list("id_usuario=" + usuario);
+            res = gson.toJson(dao.getList());
+        } else if (request.getRequestURI().contains("custom")) {
+            dao.list((String)request.getParameter("custom"));
             res = gson.toJson(dao.getList());
         } else {
             Messages.writeError("Nenhum parametro conhecido foi encontrado");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
+        System.out.println(res);
         try (PrintWriter out = response.getWriter()) {
             out.print(res);
             out.flush();

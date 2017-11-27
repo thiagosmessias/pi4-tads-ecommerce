@@ -18,6 +18,7 @@ public class Pedido {
     private int status_pedido;
     private Timestamp criado_em;
     private Timestamp modificado_em;
+    private float total;
     
     static final int PAGAMENTO_PENDENTE = 0;
     static final int PAGAMENTO_APROVADO = 1;
@@ -119,6 +120,13 @@ public class Pedido {
     public void setModificado_em(Timestamp modificado_em) {
         this.modificado_em = modificado_em;
     }
-    
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
     
 }
