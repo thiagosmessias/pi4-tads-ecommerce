@@ -38,15 +38,15 @@ public class DaoPedido implements InterfaceDao {
 
     @Override
     public void update() {
-        String query = "UPDATE pedidos SET status_pedido=?"
+        String query = "UPDATE pedidos SET status_pedido=?,"
                 + " modificado_em=NOW() WHERE id=?;";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
-            stt.setInt(1, pedido.getId_usuario());
-            stt.setInt(2, pedido.getStatus_pedido());
-            stt.setInt(3, pedido.getId());
-            stt.execute();
+            stt.setInt(1, pedido.getStatus_pedido());
+            stt.setInt(2, pedido.getId());
+            int i = stt.executeUpdate();
+            System.out.println("Rows updated " + i);
         } catch (SQLException ex) {
             Logger.getLogger(DaoPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,7 +84,7 @@ public class DaoPedido implements InterfaceDao {
 
     @Override
     public void delete() {
-        this.pedido.setStatus_pedido("Cancelado");
+        this.pedido.setStatus_pedido(5);
         this.update();
     }
 

@@ -66,7 +66,7 @@ public class ServletItemPedido extends HttpServlet {
                     item.setQuantidade(jobj.getInt("quantidade"));
                 }
                 if (jobj.has("preco")) {
-                    item.setPreco(jobj.getFloat("preco"));
+                    item.setPreco((jobj.getFloat("preco") * item.getQuantidade()));
                 }
                 if (jobj.has("id")) {
                     item.setProduto_id(jobj.getInt("id"));
@@ -76,6 +76,8 @@ public class ServletItemPedido extends HttpServlet {
                     System.out.println(d.getClass());
                     d.set(item);
                     d.insert();
+                    ServletProduto.updateEstoqueProduto(item.getProduto_id(), 
+                            item.getQuantidade());
                 }
             }
             response.setStatus(HttpServletResponse.SC_CREATED);

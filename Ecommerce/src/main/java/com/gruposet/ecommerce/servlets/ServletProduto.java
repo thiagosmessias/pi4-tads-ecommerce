@@ -39,7 +39,18 @@ public class ServletProduto extends HttpServlet {
             dao.select("id=" + id);
             res = gson.toJson(dao.get());
         } else {
-            dao.list("1=1");
+            System.out.println("Search products");
+            if (request.getParameter("search") == null || request.getParameter("search").isEmpty()) {
+                System.out.println("Search products without parameters.");
+                dao.list("1=1");
+            } else {
+                String p = request.getParameter("search");
+                System.out.println("Search with parameters." + p);
+                dao.list("LOWER(modelo) LIKE LOWER('%" + p + "%')"
+                        + " OR LOWER(marca) LIKE LOWER('%" + p + "%')"
+                        + " OR LOWER(descricao) LIKE LOWER('%" + p + "%')");
+            }
+            
             res = gson.toJson(dao.getList());
         }
         try (PrintWriter out = response.getWriter()) {
@@ -105,5 +116,14 @@ public class ServletProduto extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
+    
+    public static void updateEstoqueProduto(int id, int quantidade) {
+        System.out.println("Update estoque " + id);
+        InterfaceDao d = new DaoProduto();
+        d.select("id=" + id);
+        Produto p = (Produto) d.get();
+        p.setEstoque((p.getEstoque() - quantidade));
+        d.set(p);
+        d.update();
+    }
 }

@@ -1,17 +1,13 @@
 package com.gruposet.ecommerce.servlets;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.gruposet.ecommerce.daos.DaoPedido;
 import com.gruposet.ecommerce.daos.InterfaceDao;
 import com.gruposet.ecommerce.helpers.Messages;
 import com.gruposet.ecommerce.models.Pedido;
-import com.gruposet.ecommerce.models.Produto;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -54,7 +50,7 @@ public class ServletPedido extends HttpServlet {
             System.out.println(usuario);
             dao.list("id_usuario=" + usuario);
             res = gson.toJson(dao.getList());
-        } else if (request.getRequestURI().contains("custom")) {
+        } else if (request.getParameter("custom").isEmpty()) {
             dao.list((String)request.getParameter("custom"));
             res = gson.toJson(dao.getList());
         } else {
@@ -89,13 +85,18 @@ public class ServletPedido extends HttpServlet {
         if (id != null) {
             this.dao.select("id=" + id);
         }
-
+        System.out.println("Define the action "
+                + " id=" + id
+                + " ususario=" + usuario
+                + " delete=" + request.getParameter("delete")
+                + " update=" + request.getParameter("update"));
         // Delete
-        if (request.getRequestURI().contains("delete") && id != null) {
+        if (request.getParameter("delete").isEmpty() && id != null) {
+            System.out.println("Delete");
             this.dao.delete();
 
             // Update
-        } else if (request.getRequestURI().contains("update") && id != null) {
+        } else if (request.getParameter("update").isEmpty() && id != null) {
             final Pedido pedido = (Pedido) this.dao.get();
             if (json.has("status_pedido")) {
                 pedido.setStatus_pedido(json.getInt("status_pedido"));

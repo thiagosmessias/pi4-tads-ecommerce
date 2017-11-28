@@ -31,7 +31,8 @@ angular.module('AppMain')
   $scope.makeRequest = function() {
     api.call('ServletPedido', 'post', {
       items: pedido.list(),
-      usuario: $rootScope.usuario
+      usuario: $rootScope.usuario,
+      endereco: $scope.endereco
     }).then(function() {
       alert("Pedido relalizado com sucesso");
       pedido.clear();

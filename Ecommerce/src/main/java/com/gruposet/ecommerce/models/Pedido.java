@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class Pedido {
     private int id;
     private int id_usuario;
-    private int status_pedido;
+    private String status_pedido;
     private Timestamp criado_em;
     private Timestamp modificado_em;
     private float total;
@@ -44,63 +44,56 @@ public class Pedido {
         this.id_usuario = id_usuario;
     }
 
-    public String getStatus_pedido(boolean text) {
-        String status = null;
+    public int getStatus_pedido() {
+        int status = 0;
         switch(this.status_pedido) {
-            case PAGAMENTO_PENDENTE:
-                status = "Pagamento pendente";
+            case "Pagamento pendente":
+                status = PAGAMENTO_PENDENTE;
                 break;
-            case PAGAMENTO_APROVADO:
-                status = "Pagamento aprovado";
+            case "Pagamento aprovado":
+                status= PAGAMENTO_APROVADO;
                 break;
-            case PROCESSANDO:
-                status = "Processando";
+            case "Processando":
+                status= PROCESSANDO;
                 break;
-            case ENVIADO:
-                status = "Enviado";
+            case "Enviado":
+                status = ENVIADO;
                 break;
-            case RECEBIDO:
-                status = "Recebido";
+            case "Recebido":
+                status = RECEBIDO;
                 break;
-            case CANCELADO:
-                status =  "Cancelado";
+            case "Cancelado":
+                status =  CANCELADO;
                 break;
-            case DEVOLVIDO:
-                status = "Devolvido";
+            case "Devolvido":
+                status = DEVOLVIDO;
                 break;  
         }
         return status;
     }
-    public int getStatus_pedido() {
-        return this.status_pedido;
-    }
     
     public void setStatus_pedido(int status) {
-        this.status_pedido = status;
-    }
-    
-    public void setStatus_pedido(String status) {
         switch(status) {
-            case "Pagamento pendente":
-                this.status_pedido = PAGAMENTO_PENDENTE;
+            case PAGAMENTO_PENDENTE:
+                this.status_pedido = "Pagamento pendente";
                 break;
-            case "Pagamento aprovado":
-                this.status_pedido = PAGAMENTO_APROVADO;
+            case PAGAMENTO_APROVADO:
+                this.status_pedido = "Pagamento aprovado";
                 break;
-            case "Processando":
-                this.status_pedido = PROCESSANDO;
+            case PROCESSANDO:
+                this.status_pedido = "Processando";
                 break;
-            case "Enviado":
-                this.status_pedido = ENVIADO;
+            case ENVIADO:
+                this.status_pedido = "Enviado";
                 break;
-            case "Recebido":
-                this.status_pedido = RECEBIDO;
+            case RECEBIDO:
+                this.status_pedido = "Recebido";
                 break;
-            case "Cancelado":
-                this.status_pedido =  CANCELADO;
+            case CANCELADO:
+                this.status_pedido =  "Cancelado";
                 break;
-            case "Devolvido":
-                this.status_pedido = DEVOLVIDO;
+            case DEVOLVIDO:
+                this.status_pedido = "Devolvido";
                 break;  
         }
     }

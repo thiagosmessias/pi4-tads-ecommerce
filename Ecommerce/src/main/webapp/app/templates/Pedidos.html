@@ -14,6 +14,7 @@
               <th>Criado em</th>
               <th>Atualizado em</th>
               <th>Valor total</th>
+              <th>Cancelar</th>
             </tr>
           </thead>
           <tbody>
@@ -23,6 +24,12 @@
               <td>{{ pedido.criado_em }}</td>
               <td>{{ pedido.modificado_em }}</td>
               <td>{{ pedido.total }}</td>
+              <td><a href="" ng-if="
+                pedido.status_pedido != 'Enviado'
+                && pedido.status_pedido != 'Recebido'
+                && pedido.status_pedido != 'Cancelado'
+                && pedido.status_pedido != 'Devolvido'
+                " ng-click="cancel(pedido.id)">Cancelar Pedido</a></td>
             </tr>
           </tbody>
         </table>
