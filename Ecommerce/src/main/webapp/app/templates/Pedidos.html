@@ -1,0 +1,39 @@
+<div ng-controller="pedidosController as ctrl">
+  <nav-menu></nav-menu>
+  <div class="row">
+    <div class="col-md-3">
+      <side-menu></side-menu>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Número de identificação</th>
+              <th>Status</th>
+              <th>Criado em</th>
+              <th>Atualizado em</th>
+              <th>Valor total</th>
+              <th>Cancelar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="pedido in pedidos">
+              <td>{{ pedido.id }}</td>
+              <td>{{ pedido.status_pedido }}</td>
+              <td>{{ pedido.criado_em }}</td>
+              <td>{{ pedido.modificado_em }}</td>
+              <td>{{ pedido.total }}</td>
+              <td><a href="" ng-if="
+                pedido.status_pedido != 'Enviado'
+                && pedido.status_pedido != 'Recebido'
+                && pedido.status_pedido != 'Cancelado'
+                && pedido.status_pedido != 'Devolvido'
+                " ng-click="cancel(pedido.id)">Cancelar Pedido</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

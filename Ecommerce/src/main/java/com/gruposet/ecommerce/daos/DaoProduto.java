@@ -36,6 +36,8 @@ public class DaoProduto implements InterfaceDao {
     public void update() {
         String query = "UPDATE produtos SET estoque=?, modelo=?, marca=?, descricao=?, tamanho=?, preco=?, ativo=? WHERE id=?";
         PreparedStatement stt;
+        System.out.println("Produtos id=" + produto.getId());
+        System.out.println(query);
         try {
             stt = database.getConnection().prepareStatement(query);
             stt.setInt(1, produto.getEstoque());
@@ -46,8 +48,9 @@ public class DaoProduto implements InterfaceDao {
             stt.setDouble(6, produto.getPreco());
             stt.setBoolean(7, produto.isAtivo());
             stt.setInt(8, produto.getId());
-
-            stt.execute();
+            int i = stt.executeUpdate();
+            System.out.println("Rows updated " + i);
+            
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -60,18 +63,20 @@ public class DaoProduto implements InterfaceDao {
             query += " WHERE " + condition;
         }
         query += ";";
-
+        System.out.println(query);
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
+                produto = new Produto();
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setModelo(rs.getString("modelo"));
                 produto.setMarca(rs.getString("marca"));
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setTamanho(rs.getString("tamanho"));
+                produto.setId(rs.getInt("id"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,21 +92,25 @@ public class DaoProduto implements InterfaceDao {
     @Override
     public void list(String condition) {
         String query = "SELECT * FROM produtos";
-        if (condition.length() == 0) {
+        if (condition.length() != 0) {
             query += " WHERE " + condition;
         }
-        query += "query";
+        query += ";";
 
         PreparedStatement stt;
+        produtos = new ArrayList<Produto>();
+        System.out.println(query);
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
+                produto = new Produto();
                 produto.setDescricao(rs.getString("descricao"));
                 produto.setModelo(rs.getString("modelo"));
                 produto.setMarca(rs.getString("marca"));
                 produto.setPreco(rs.getDouble("preco"));
                 produto.setTamanho(rs.getString("tamanho"));
+                produto.setEstoque(rs.getInt("estoque"));
                 produto.setId(rs.getInt("id"));
                 produtos.add(produto);
             }

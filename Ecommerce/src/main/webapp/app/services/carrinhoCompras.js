@@ -1,11 +1,26 @@
 angular.module('AppMain')
-.factory('pedido', function($rootScope, utils) {
-  var userId = utils.getUser() ? utils.getUser().id : '';
+.factory('pedido', function($rootScope, $localStorage) {
+  var $storage = $localStorage;
 
-  $rootScope.shoppingList = {
-    products: [],
-    id: userId + '-' + Math.random()
-  };
+  $rootScope.$watch('shoppingList', function() {
+    console.log($rootScope.shoppingList);
+  });
+
+  var userId = '';
+  if ('user' in $rootScope) {
+    userId = $rootScope.user.id ? $rootScope.user.id : '';
+  }
+
+  console.log('shoppingList', 'shoppingList' in $storage, typeof $storage.shoppingList == 'object');
+
+  if ('shoppingList' in $storage && typeof $storage.shoppingList == 'object') {
+    $rootScope.shoppingList = $storage.shoppingList;
+  } else {
+    $rootScope.shoppingList = {
+      products: [],
+      id: userId + '-' + Math.random()
+    };
+  }
 
   return {
     list: function() {
@@ -17,13 +32,17 @@ angular.module('AppMain')
     },
 
     add: function(product) {
+      console.log('add', product);
       if ('id' in product) {
+        console.log(product)
         product.quantidade = 1;
-        $rootScope.shoppingList.product.push(product);
+        $rootScope.shoppingList.products.push(product);
+        $storage.shoppingList = $rootScope.shoppingList;
       } else {
         alert("Não foi possível adicionar esse produto, houve um erro!");
         console.log("O produto adicionado não tinha ID");
       }
+
     },
 
     update: function(index, newProductValues) {
@@ -39,15 +58,19 @@ angular.module('AppMain')
       } else {
         alert("Não foi possível atualizar este produto");
       }
+      $storage.shoppingList = $rootScope.shoppingList;
     },
 
     delete: function(index) {
+      console.log('delete', index);
       if (typeof $rootScope.shoppingList.products[index] != 'undefined') {
-        if (!delete $rootScope.shoppingList.products[index]) {
-          console.log("Um erro inesperado ao deletar esse produto!");
-          alert("Um erro inesperado ao deletar esse produto!");
-        }
+        $rootScope.shoppingList.products.splice(index, 1);
       }
+      $storage.shoppingList = $rootScope.shoppingList;
+    },
+    clear: function() {
+      $rootScope.shoppingList.products = [];
+      $storage.shoppingList = $rootScope.shoppingList;
     }
   };
 });

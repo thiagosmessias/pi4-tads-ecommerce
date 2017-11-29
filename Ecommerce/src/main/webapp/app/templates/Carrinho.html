@@ -1,0 +1,95 @@
+<div ng-controller="carrinhoController as ctrl">
+  <nav-menu></nav-menu>
+  <div class="row">
+    <div class="col-md-3">
+      <side-menu></side-menu>
+    </div>
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Carrinho de compras</div>
+
+        <!-- Table -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantidade</th>
+              <th>Valor</th>
+              <th>Remover</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="produto in itens track by $index">
+              <td>
+                {{ produto.modelo }}
+              </td>
+              <td>
+                <div class="input-group">
+                  <div class="input-group-btn">
+                    <!-- Buttons -->
+                  </div>
+                  <input type="number" class="form-control" aria-label="quantidade" ng-model="produto.quantidade" max="{{produto.estoque}}">
+                </div>
+              </td>
+              <td>R$ {{ produto.preco * produto.quantidade }}</td>
+              <td>
+                <a href="" ng-click="delete($index)"><span class="glyphicon glyphicon-remove"></span></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <label for="enderecos">Endereco de entrega: </label>
+          <select id="enderecos" ng-model="endereco">
+            <option ng-repeat="endereco in enderecos" value="endereco.id">{{ endereco.rua }}, {{ endereco.numero }}, {{ endereco.cidade }}, {{ endereco.estado }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <div class="row">
+            <div class="panel panel-default">
+              <div class="panel-heading">Detalhes</div>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Frete</td>
+                    <td>R$ {{ frete }}</td>
+                  </tr>
+                  <tr>
+                    <td>Total do pedido</td>
+                    <td>R$ {{ calcTotalPed() }}</td>
+                  </tr>
+                  <tr>
+                    <td>Desconto</td>
+                    <td>R$ {{ desconto }}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Valor total
+                    </td>
+                    <td>R$ {{ calcTotal() }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary" ng-click="makeRequest()">
+                Confirmar Pedido
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

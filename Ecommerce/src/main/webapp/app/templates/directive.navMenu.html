@@ -1,0 +1,23 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#!/index">Home<span class="sr-only">(current)</span></a></li>
+        <li><a href="#!/carrinho">Carrinho de compras</a></li>
+        <li><a href="#!/pedidos">Pedidos</a></li>
+      </ul>
+      <div class="navbar-form navbar-left">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Busca" ng-model="searchV">
+        </div>
+        <button ng-click="search(true)" class="btn btn-default">Pesquisar</button>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">{{ isLogged ? "Sair" : "Entrar" }}</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
