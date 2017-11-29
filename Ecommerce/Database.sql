@@ -63,3 +63,10 @@ CREATE TABLE IF NOT EXISTS `items_pedido` (
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id),
     FOREIGN KEY (id_produto) REFERENCES produtos(id)
 );
+
+CREATE TABLE IF NOT EXISTS `session` (
+  hash            varchar(255) NOT NULL UNIQUE,
+  id_usuario      INT NOT NULL,
+  PRIMARY KEY (hash),
+  FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+);
