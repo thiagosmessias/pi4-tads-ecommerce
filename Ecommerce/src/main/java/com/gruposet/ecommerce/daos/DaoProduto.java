@@ -98,7 +98,7 @@ public class DaoProduto implements InterfaceDao {
         query += ";";
 
         PreparedStatement stt;
-        produtos = new ArrayList<Produto>();
+        produtos = new ArrayList<>();
         System.out.println(query);
         try {
             stt = database.getConnection().prepareCall(query);
@@ -109,6 +109,7 @@ public class DaoProduto implements InterfaceDao {
                 produto.setModelo(rs.getString("modelo"));
                 produto.setMarca(rs.getString("marca"));
                 produto.setPreco(rs.getDouble("preco"));
+                produto.setImg(rs.getString("imagem"));
                 produto.setTamanho(rs.getString("tamanho"));
                 produto.setEstoque(rs.getInt("estoque"));
                 produto.setId(rs.getInt("id"));

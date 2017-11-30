@@ -20,8 +20,9 @@ public class Database {
         properties.put("password", psw);
 
         try {
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(databaseUrl, properties);
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
         return connection;

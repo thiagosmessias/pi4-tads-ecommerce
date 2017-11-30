@@ -3,7 +3,7 @@ package com.gruposet.ecommerce.models;
 public class Produto {
 
     private int id, estoque;
-    private String modelo, marca, descricao, tamanho;
+    private String modelo, marca, descricao, tamanho, img;
     private double preco;
     private boolean ativo;
 
@@ -19,6 +19,15 @@ public class Produto {
 
     public Produto() {
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+    
 
     public int getId() {
         return id;

@@ -15,6 +15,6 @@ angular.module('AppMain')
       id: id
     }).then(function() {
       location.reload();
-    })
+    });
   };
 });
