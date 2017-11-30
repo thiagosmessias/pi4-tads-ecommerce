@@ -91,12 +91,12 @@ public class ServletPedido extends HttpServlet {
                 + " delete=" + request.getParameter("delete")
                 + " update=" + request.getParameter("update"));
         // Delete
-        if (request.getParameter("delete").isEmpty() && id != null) {
+        if (request.getParameter("delete") != null && request.getParameter("delete").isEmpty() && id != null) {
             System.out.println("Delete");
             this.dao.delete();
 
             // Update
-        } else if (request.getParameter("update").isEmpty() && id != null) {
+        } else if (request.getParameter("update") != null && request.getParameter("update").isEmpty() && id != null) {
             final Pedido pedido = (Pedido) this.dao.get();
             if (json.has("status_pedido")) {
                 pedido.setStatus_pedido(json.getInt("status_pedido"));
