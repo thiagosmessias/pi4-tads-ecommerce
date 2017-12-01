@@ -9,7 +9,7 @@ package com.gruposet.ecommerce.models;
  *
  * @author thiago
  */
-public class Session {
+public class UserSession {
     private int id_usuario;
     private String hash;
 
@@ -29,10 +29,10 @@ public class Session {
         this.hash = hash;
     }
 
-    public Session() {
+    public UserSession() {
     }
 
-    public Session(int id_usuario, String hash) {
+    public UserSession(int id_usuario, String hash) {
         this.id_usuario = id_usuario;
         this.hash = hash;
     }

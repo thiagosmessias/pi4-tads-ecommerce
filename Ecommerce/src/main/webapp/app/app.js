@@ -11,7 +11,7 @@ angular.module('AppMain', ['ngRoute', 'ngStorage'])
   } else {
     $rootScope.usuario = false;
   }
-  $rootScope.usuario = 1;
+
   if ($rootScope.usuario) {
     api.call('ServletUsuario', 'get', {
       id: $rootScope.usuario

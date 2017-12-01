@@ -18,6 +18,9 @@ angular.module('AppMain')
         .when('/carrinho', {
             templateUrl: "app/templates/Carrinho.html"
         })
+        .when('/login', {
+            templateUrl: "app/templates/Login.html"
+        })
         .when('/usuario/:id/edit', {
             templateUrl: "app/templates/usuario.edit.html"
         })

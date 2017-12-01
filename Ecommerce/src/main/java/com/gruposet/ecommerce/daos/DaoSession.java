@@ -1,6 +1,6 @@
 package com.gruposet.ecommerce.daos;
 
-import com.gruposet.ecommerce.models.Session;
+import com.gruposet.ecommerce.models.UserSession;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,9 +11,13 @@ import java.util.logging.Logger;
 public class DaoSession implements InterfaceDao {
 
     private final Database database;
-    private Session session;
-    private ArrayList<Session> sessions;
-
+    private UserSession session;
+    private ArrayList<UserSession> sessions;
+    
+    public DaoSession() {
+        this.database = new Database();
+    }
+        
     @Override
     public void insert() {
         String query = "INSERT INTO session (id_usuario, hash) VALUE (?,?)";
@@ -59,7 +63,7 @@ public class DaoSession implements InterfaceDao {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
-                session = new Session();
+                session = new UserSession();
                 session.setId_usuario(rs.getInt("id_usuario"));
                 session.setHash(rs.getString("hash"));
             }
@@ -70,13 +74,13 @@ public class DaoSession implements InterfaceDao {
 
     @Override
     public void delete() {
-        String query = "DELETE FROM session WHERE hash=?";
+        String query = "DELETE FROM session WHERE id_usuario=?";
         PreparedStatement stt;
         System.out.println("Sessions id_usuario=" + session.getId_usuario());
         System.out.println(query);
         try {
             stt = database.getConnection().prepareStatement(query);
-            stt.setString(1, session.getHash());
+            stt.setInt(1, session.getId_usuario());
             stt.execute();
             
         } catch (SQLException ex) {
@@ -93,13 +97,13 @@ public class DaoSession implements InterfaceDao {
         query += ";";
 
         PreparedStatement stt;
-        sessions = new ArrayList<Session>();
+        sessions = new ArrayList<UserSession>();
         System.out.println(query);
         try {
             stt = database.getConnection().prepareCall(query);
             ResultSet rs = stt.executeQuery(query);
             while (rs.next()) {
-                session = new Session();
+                session = new UserSession();
                 session.setId_usuario(rs.getInt("id_usuario"));
                 session.setHash(rs.getString("hash"));
                 sessions.add(session);
@@ -121,10 +125,6 @@ public class DaoSession implements InterfaceDao {
 
     @Override
     public void set(Object obj) {
-        this.session = (Session) obj;
-    }
-
-    public DaoSession() {
-        this.database = new Database();
+        this.session = (UserSession) obj;
     }
 }

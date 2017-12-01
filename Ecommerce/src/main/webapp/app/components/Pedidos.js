@@ -1,13 +1,16 @@
 angular.module('AppMain')
 .controller('pedidosController', function($rootScope, $http, api, $location, $scope) {
-  api.call('ServletPedido', 'get', {
-    usuario: 1
-  }).then(function(response) {
-    $rootScope.pedidos = response.data;
-  }, function(response) {
-    alert("Um erro inesperado ocorreu");
-    console.log(response);
-  });
+  if ($rootScope.usuario) {
+    api.call('ServletPedido', 'get', {
+      usuario: $rootScope.usuario
+    }).then(function(response) {
+      $rootScope.pedidos = response.data;
+    }, function(response) {
+      alert("Um erro inesperado ocorreu");
+      console.log(response);
+    });
+
+  }
 
   $scope.cancel = function(id) {
     console.log(id);

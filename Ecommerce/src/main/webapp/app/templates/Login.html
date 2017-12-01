@@ -1,0 +1,9 @@
+<h1>Login</h1>
+<div ng-controller="loginController as ctrl">
+  <form ng-submit="login(cre)">
+    <label>Login</label><input type="text" ng-model="cre.username" required />
+    <label>Senha</label><input type="password" ng-model="cre.password" required />
+    <button type="submit" name="button">Entrar</button>
+  </form>
+
+</div>
