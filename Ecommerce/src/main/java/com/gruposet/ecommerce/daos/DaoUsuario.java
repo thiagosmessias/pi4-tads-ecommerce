@@ -16,7 +16,7 @@ public class DaoUsuario implements InterfaceDao {
 
     @Override
     public void insert() {
-        String query = "INSERT INTO usuarios (nome, apelido, cpf, data_nasc, celular, email, senha, acesso) VALUE (?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO usuarios (nome, apelido, cpf, data_nasc, telefone, email, senha) VALUE (?,?,?,?,?,?,?);";
         PreparedStatement stt;
         try {
             stt = database.getConnection().prepareStatement(query);
@@ -27,7 +27,6 @@ public class DaoUsuario implements InterfaceDao {
             stt.setString(5, user.getTelefone());
             stt.setString(6, user.getEmail());
             stt.setString(7, user.getSenha());
-            stt.setString(8, user.getPerfil());
 
             stt.execute();
         } catch (SQLException ex) {

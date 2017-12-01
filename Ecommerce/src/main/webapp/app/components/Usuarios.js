@@ -11,7 +11,7 @@ angular.module('AppMain')
                             if (response.status == 200 || response.status == 201) {
                                 alert("Salvo com sucesso");
                             }
-                        }, function (repsonse) {
+                        }, function (response) {
                             alert("Algum erro ocorreu");
                             console.log(response);
                         });

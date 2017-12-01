@@ -1,0 +1,20 @@
+<div ng-controller="cadastro">
+    <nav-menu></nav-menu>
+    <div class="row">
+        <div class="col-md-3">
+            <side-menu></side-menu>
+        </div>
+        <div class="col-md-9">
+            <form ng-submit="addCli()" style="display:flex;">
+                <label for="nome">Nome</label><input type="text" ng-model="user.nome" id="nome" required/><br>
+                <label for="apelido">Apelido</label><input type="text" ng-model="user.apelido" id="apelido" required/><br>
+                <label for="cpf">CPF</label><input type="text" ng-model="user.cpf" id="cpf" required/><br>
+                <label for="data">Data de Nasciento</label><input type="date" ng-model="user.datanasc" id="data" required/><br>
+                <label for="tel">Telefone</label><input type="tel" ng-model="user.tel" id="tel"/><br>
+                <label for="email">Email</label><input type="email" ng-model="user.email" id="email" required/><br>
+                <label for="senha">Senha</label><input type="password" ng-model="user.senha" id="senha" required/><br>
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>

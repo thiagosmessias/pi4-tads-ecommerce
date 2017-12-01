@@ -5,6 +5,7 @@ import com.gruposet.ecommerce.daos.DaoUsuario;
 import com.gruposet.ecommerce.daos.InterfaceDao;
 import com.gruposet.ecommerce.models.Usuario;
 import com.gruposet.ecommerce.services.ServiceUsuario;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 @WebServlet(name = "ServletUsuario", urlPatterns = "usuario")
 public class ServletUsuario extends HttpServlet {
@@ -48,57 +50,29 @@ public class ServletUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
-        Integer id = Integer.valueOf(request.getParameter("id"));
-        if (id != null) {
-            this.dao.select("id=" + id);
+        StringBuilder sb = new StringBuilder();
+        BufferedReader br = request.getReader();
+        String str;
+        while ((str = br.readLine()) != null) {
+            sb.append(str);
         }
+        JSONObject jObj = new JSONObject(sb.toString());
 
-        // Delete
-        if (request.getRequestURI().contains("delete") && id != null) {
-            this.dao.delete();
-            response.setStatus(HttpServletResponse.SC_OK);
+        String nome = jObj.getString("nome");
+        String apelido = jObj.getString("apelido");
+        String cpf = jObj.getString("cpf");
+        String datanasc = jObj.getString("datanasc");
+        String telefone = jObj.getString("tel");
+        String email = jObj.getString("email");
+        String senha = jObj.getString("senha");
 
-            // Update
-        } else if (request.getRequestURI().contains("update") && id != null) {
-            Usuario usuario = (Usuario) this.dao.get();
-            usuario.setNome(request.getParameter("nome"));
-            usuario.setApelido(request.getParameter("apelido"));
-            usuario.setCpf(request.getParameter("cpf"));
-            usuario.setData_nasc(request.getParameter("data_nasc"));
-            usuario.setTelefone(request.getParameter("telefone"));
-            usuario.setEmail(request.getParameter("email"));
-            usuario.setSenha(request.getParameter("senha"));
+        System.out.println(nome + ", " + apelido + ", " + cpf + ", " + datanasc + ", " + telefone + ", " + email + ", " + senha);
 
-            if (this.dao.get().equals(usuario)) {
-                if (ServiceUsuario.isUsuarioValido(usuario)) {
-                    this.dao.set(usuario);
-                    this.dao.update();
-                }
+        Usuario user;
+        JSONObject error = new JSONObject();
 
-            }
-            
-            // Insert
-        } else {
-            String nome = request.getParameter("nome");
-            String apelido = request.getParameter("apelido");
-            String cpf = request.getParameter("cpf");
-            String data_nasc = request.getParameter("data_nasc");
-            String telefone = request.getParameter("telefone");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-
-            Usuario usuario = new Usuario(nome, apelido, cpf, data_nasc, telefone, email, senha);
-
-            if (ServiceUsuario.isUsuarioValido(usuario)) {
-                this.dao.set(usuario);
-                this.dao.insert();
-            }
-
-        }
-        response.setStatus(HttpServletResponse.SC_OK);
-        try (PrintWriter out = response.getWriter()) {
-            out.print("");
-            out.flush();
-        }
+        user = new Usuario(nome, apelido, cpf, datanasc, telefone, email, senha);
+        this.dao.set(user);
+        this.dao.insert();
     }
 }
