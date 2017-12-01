@@ -1,5 +1,5 @@
 angular.module('AppMain')
-.factory('validation', function($rootScope) {
-  return {
-  };
-});
+        .factory('validation', function ($rootScope) {
+            return {
+            };
+        });

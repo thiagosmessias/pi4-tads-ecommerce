@@ -1,15 +1,15 @@
 <div class="col-sm-6 col-md-4" ng-repeat="produto in produtos">
-  <div class="thumbnail">
-    <img src="https://dummyimage.com/240x240/000/fff" alt="240">
-    <div class="caption">
-      <h3>{{ produto.modelo }}</h3>
-      <p>{{ produto.descricao }}</p>
-      <p>{{ produto.marca }}</p>
-      <p>
-        <a href="" ng-click="add(produto)" class="btn btn-primary" role="button">
-          {{ produto.estoque > 0 ? "Adicionar ao carrinho R$ " + produto.preco : "Produto em falta" }}
-        </a>
-      </p>
+    <div class="thumbnail">
+        <img src="https://dummyimage.com/240x240/000/fff" alt="240">
+        <div class="caption">
+            <h3>{{ produto.modelo}}</h3>
+            <p>{{ produto.descricao}}</p>
+            <p>{{ produto.marca}}</p>
+            <p>
+                <a href="" ng-click="add(produto)" class="btn btn-primary" role="button">
+                    {{ produto.estoque > 0 ? "Adicionar ao carrinho R$ " + produto.preco : "Produto em falta" }}
+                </a>
+            </p>
+        </div>
     </div>
-  </div>
 </div>

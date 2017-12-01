@@ -24,7 +24,7 @@ angular.module('AppMain')
         .when('/produtos', {
             templateUrl: "app/templates/produtos.html"
         })
-        .when('/produto/:id', {
+        .when('/produto/', {
             templateUrl: "app/templates/produto.detail.html"
         })
         .when('/produto/:id/edit', {
