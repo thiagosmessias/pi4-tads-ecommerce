@@ -77,6 +77,7 @@ public class DaoUsuario implements InterfaceDao {
                 user.setEmail(rs.getString("email"));
                 user.setSenha(rs.getString("senha"));
                 user.setId(rs.getInt("id"));
+                user.setAtivo(rs.getBoolean("ativo"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);

@@ -20,6 +20,10 @@
         <servlet-name>ServletPedido</servlet-name>
         <servlet-class>com.gruposet.ecommerce.servlets.ServletPedido</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ServletSession</servlet-name>
+        <servlet-class>com.gruposet.ecommerce.servlets.ServletSession</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ServletUsuario</servlet-name>
         <url-pattern>/ServletUsuario</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>ServletEndereco</servlet-name>
         <url-pattern>/ServletEndereco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletSession</servlet-name>
+        <url-pattern>/ServletSession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

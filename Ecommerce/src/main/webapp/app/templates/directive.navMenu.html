@@ -7,7 +7,7 @@
       <ul class="nav navbar-nav">
         <li><a href="#!/index">Home<span class="sr-only">(current)</span></a></li>
         <li><a href="#!/carrinho">Carrinho de compras</a></li>
-        <li><a href="#!/pedidos">Pedidos</a></li>
+        <li><a href="" ng-click="pedido()">Pedidos</a></li>
       </ul>
       <div class="navbar-form navbar-left">
         <div class="form-group">
@@ -16,7 +16,7 @@
         <button ng-click="search(true)" class="btn btn-default">Pesquisar</button>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#!/cadastro">{{ isLogged ? "Sair" : "Entrar" }}</a></li>
+        <li><a href="" ng-click="loginLogout()">{{ usuario ? "Sair" : "Entrar" }}</a></li>
       </ul>
     </div>
   </div>
