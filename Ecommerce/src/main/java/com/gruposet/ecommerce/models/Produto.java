@@ -3,10 +3,18 @@ package com.gruposet.ecommerce.models;
 public class Produto {
 
     private int id, estoque;
-    private String modelo, marca, descricao, tamanho;
+    private String modelo, marca, descricao, tamanho, imagem;
     private double preco;
     private boolean ativo;
 
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+    
     public Produto(int estoque, String modelo, String marca, String descricao, String tamanho, double preco) {
         this.estoque = estoque;
         this.modelo = modelo;

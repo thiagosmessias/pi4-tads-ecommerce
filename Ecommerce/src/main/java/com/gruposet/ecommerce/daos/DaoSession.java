@@ -76,7 +76,6 @@ public class DaoSession implements InterfaceDao {
     public void delete() {
         String query = "DELETE FROM session WHERE id_usuario=?";
         PreparedStatement stt;
-        System.out.println("Sessions id_usuario=" + session.getId_usuario());
         System.out.println(query);
         try {
             stt = database.getConnection().prepareStatement(query);

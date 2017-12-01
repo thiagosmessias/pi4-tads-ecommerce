@@ -5,7 +5,7 @@
  */
 
 angular.module('AppMain', ['ngRoute', 'ngStorage'])
-.run(function($rootScope, $localStorage, api) {
+.run(function($rootScope, $localStorage, api, $localStorage, $location) {
   if ('usuario' in $localStorage) {
     $rootScope.usuario = $localStorage.usuario;
   } else {
@@ -19,6 +19,34 @@ angular.module('AppMain', ['ngRoute', 'ngStorage'])
       $rootScope.userData = response.data;
     });
   }
+
+  $rootScope.login = function (cred) {
+    api.call('ServletSession', 'post', {
+      email: cred.username,
+      senha: cred.password
+    }).then(function(response) {
+      $rootScope.usuario = response.data.id_usuario;
+      $localStorage.$default({session: response.data});
+      $localStorage.$default({usuario: $rootScope.usuario});
+      $location.path("/pedidos");
+    }, function(response) {
+      console.log(response);
+      alert("Usuario ou senha incorretos, tente novamente!");
+    });
+  };
+
+  $rootScope.logout = function (cred) {
+    api.call('ServletSession?delete', 'post', {
+      id_usuario: $rootScope.usuario
+    }).then(function(response) {
+      $rootScope.usuario = response.data.id_usuario;
+      $localStorage.$default({session: response.data});
+      $location.path("/index");
+    }, function(response) {
+      console.log(response);
+    });
+  }
+
 })
 // Default controller to initial page
 .controller("IndexController", function ($scope, $rootScope, api) {

@@ -5,7 +5,7 @@
  */
 
 angular.module('AppMain')
-<<<<<<< HEAD
+
         .config(function ($routeProvider, $locationProvider) {
             $locationProvider.hashPrefix('!');
             // Routes to single page application
@@ -34,9 +34,9 @@ angular.module('AppMain')
                     .when('/produto/:id/edit', {
                         templateUrl: "app/templates/produto.edit.html"
                     })
-		    .when('/login', {
-			templateUrl: "app/templates/Login.html",
-		    })
+                    .when('/login', {
+                        templateUrl: "app/templates/Login.html",
+		                })
                     .otherwise('/index');
 
         });
